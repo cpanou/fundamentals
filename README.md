@@ -53,6 +53,7 @@ https://www.tutorialspoint.com/dbms/dbms_data_models.htm
 
 SQL:
 https://www.w3schools.com/sql/
+
 https://www.dofactory.com/sql/tutorial
 
 MySQL:
