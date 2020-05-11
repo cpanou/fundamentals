@@ -10,7 +10,7 @@ public class CheckoutResponse {
     public CheckoutResponse(){}
 
     public CheckoutResponse(String totalCost, Order order) {
-        this.totalCost = totalCost;
+        this.totalCost = totalCost;//
         this.order = order;
     }
 
