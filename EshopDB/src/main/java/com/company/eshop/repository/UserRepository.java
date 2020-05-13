@@ -13,25 +13,20 @@ public class UserRepository {
     private static final Logger log = Logger.getLogger(MyApplication.class.getName());
     //Singleton Pattern
     private static UserRepository instance;
-
     private List<User> users = new ArrayList<>();
-
     //Empty private Constructor
     private UserRepository() {
     }
-
     //initializes the list with mock data
     public static void init() {
         instance = new UserRepository();
         instance.users.add(new User(instance.getNewUserId(),"mapmis1@somewhere.com", "mapmis1", "mpampis", "lakis"));
         instance.users.add(new User(instance.getNewUserId(), "someone@hotmail.com", "someone", "someone", "someone"));
     }
-
     public static UserRepository getInstance() {
         return instance;
     }
     //END Singleton
-
     private long getNewUserId() {
         return users.size() + 1;
     }

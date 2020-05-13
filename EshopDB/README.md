@@ -73,10 +73,27 @@
 
 6. JDBC:
 
+    JDBC API: This provides the application-to-JDBC Manager connection.
+    JDBC Driver API: This supports the JDBC Manager-to-Driver Connection.
+    (see /docs/jdbc-architecture.jpg)
+
     - Connection
+        1. Import JDBC Packages: Add import statements to your Java program to import required classes in your Java code.
+        2. Register JDBC Driver: This step causes the JVM to load the desired driver implementation into memory so it can fulfill your JDBC requests.
+        3. Database URL Formulation: This is to create a properly formatted address that points to the database to which you wish to connect.
+        4. Create Connection Object: Finally, code a call to the DriverManager object's getConnection( ) method to establish actual database connection.
+
     - Statements
+        1. Statement - Use this for general-purpose access to your database. Useful when you are using static SQL statements at runtime. The Statement interface cannot accept parameters.
+            (example - https://www.tutorialspoint.com/jdbc/statement-object-example.htm )
+        2. PreparedStatement - Use this when you plan to use the SQL statements many times. The PreparedStatement interface accepts input parameters at runtime.
+            (example - https://www.tutorialspoint.com/jdbc/preparestatement-object-example.htm )
+
     - Result-sets
-    - Mapping
+        1. Navigating a Result Set
+        2. Viewing a Result Set
+        
+
 
 
 7. resources: 
