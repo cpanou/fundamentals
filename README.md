@@ -1,8 +1,21 @@
 # haufullstack
 Fullstack - Fundamentals
 
+1. EshopJAXRS:
+    Full Eshop Rest Service implementation with JAX-RS showcasing:
+    - Controller-Service-Repository pattern
+    - Error Handling
+    - Data Transfer Objects
+    - Mapping Dtos to model objects
+
+2. EshopDB:
+    Adds a Database:
+    - ER Diagram based on the Application Model
+    - SQL script to create the database
+    - Using JDBC to connect to the database and execute queries
 
 
+    
 Git - basic commands:
 
     git add : adds files to the repository
@@ -14,48 +27,10 @@ Git - basic commands:
     git checkout -b <branch_name> : creates a new branch
     git merge <branch_name> : take code from another branch
 
-resources: 
-    https://towardsdatascience.com/getting-started-with-git-and-github-6fcd0f2d4ac6
-    
+  resources: 
 
-Introduction to Databases:
-
-Database Model
-
-    Entities and their attributes.
-
-    Super Key − A set of attributes (one or more) that collectively identifies an entity in an entity set.
-
-    Candidate Key − A minimal super key is called a candidate key. An entity set may have more than one candidate key.
-
-    Primary Key − A primary key is one of the candidate keys chosen by the database designer to uniquely identify the entity set.
-    Foreign Key - A Foreign key is a key that link to primary keys in other tables, thereby creating a relationship
-
-
-Entity Relationships
-
-    Relationships among entities.
-    One-to-one
-    One-to-many ( User - Order )
-    Many-to-one ( Order - User ) 
-    Many-to-many ( Order - Prouct )
-
-SQL Basics:
-
-    INSERT 
-    UPDATE
-    SELECT
-    DELETE
-
-
-Databases:
-https://www.tutorialspoint.com/dbms/dbms_data_models.htm
-
-SQL:
-https://www.w3schools.com/sql/
-
-https://www.dofactory.com/sql/tutorial
-
-MySQL:
-https://www.tutorialspoint.com/mysql/index.htm
+    1. https://towardsdatascience.com/getting-started-with-git-and-github-6fcd0f2d4ac6h
+    2. https://product.hubspot.com/blog/git-and-github-tutorial-for-beginners
+    3. https://git-scm.com/docs/gittutorial
+    4. https://try.github.io/
 
