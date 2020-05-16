@@ -22,7 +22,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
         4. Optional Headers that convey additional context
         5. Optional body which contains a sent resource
 
-        - **HTTP Request Methods - Mapped to CRUD operations**
+        - **HTTP Request Methods**
             - **POST**
             The HTTP POST method sends data to the server. The type of the body of the request is indicated by the Content-Type header.
             - **GET**
@@ -82,24 +82,24 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
             identifying the objects which will be presented as resources. In our case the Object is the Car. Each car will have an id to act as a unique identifier in its URI.
 
         - **Create Model URIs:**
-        <pre>
             These resource URIs are endpoints for RESTful services. In our application the car is the only resource so the uris will look like:
+            <pre>
                - /cars              : exposes the collection of cars
                - /cars/{car-id}     : exposes a single car
+            </pre>
             URIs do not use any verb or operation. It’s very important to not include any verb in URIs. URIs should all be nouns only.
-        </pre>
         - **Determine Representations**
             In our Application we will use the JSON format to represent the resources.
 
         - **Assign HTTP Methods**
-        <pre>
             Let’s identify the possible operations in the application and map them on resource URIs and HTTP methods:
+            <pre>
             - Retrieve all the available cars:  HTTP GET    /cars
             - Create a new car:                 HTTP POST   /cars
             - Retrieve a single car:            HTTP GET    /cars/{car-id}
             - Update a single car:              HTTP PUT    /cars/{car-id}
             - Remove a car:                     HTTP DELETE /cars/{car-id}
-        </pre>
+            </pre>
 
     3. **Using JAX-RS to implement the Service**
         JAX-RS focuses on applying Java annotations to plain Java objects. JAX-RS has annotations to bind specific URI patterns and HTTP operations to individual methods of your Java class. It also has annotations which can help you handle in input/output parameters.
