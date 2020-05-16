@@ -43,14 +43,14 @@ Extends The EshopJAXRS project to connect to a Database
       ```
     **UPDATE** - Updates existing records in a database
       ```SQL  
-        UPDATE table-name
-        SET column-name = value, column-name = value, ...
-        WHERE condition
+      UPDATE table-name
+      SET column-name = value, column-name = value, ...
+      WHERE condition
       ```
     **DELETE** - Removes records from a database table
       ```SQL
-        DELETE table-name 
-        WHERE condition
+      DELETE table-name 
+      WHERE condition
       ```
 5. **Setting up Walkthrough:**
 
