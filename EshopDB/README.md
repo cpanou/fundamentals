@@ -4,17 +4,17 @@ Extends The EshopJAXRS project to connect to a Database
 
 1. **DBMS - Data Models section**
 
-    Entity − An entity is a real-world entity having properties called attributes. For example, in a our database, a User is considered as an entity. Users has various attributes like username, email, firstname, etc.
+    **Entity** − An entity is a real-world entity having properties called attributes. For example, in a our database, a User is considered as an entity. Users has various attributes like username, email, firstname, etc.
 
-    Relationship − The logical association among entities is called a relationship. Relationships are mapped with entities in various ways. Mapping cardinalities define the number of associations between two         entities.
+    **Relationship** − The logical association among entities is called a relationship. Relationships are mapped with entities in various ways. Mapping cardinalities define the number of associations between two         entities.
 
 2. **DBMS - ER Model Basic Concepts**
 
     Entity-Set and Keys:
-    - Super Key − A set of attributes (one or more) that collectively identifies an entity in an entity set.
-    - Candidate Key − A minimal super key is called a candidate key. An entity set may have more than one candidate key.
-    - Primary Key − A primary key is one of the candidate keys chosen by the database designer to uniquely identify the entity set.
-    - Foreign Key - A Foreign key is a key that links to primary keys in other tables, thereby creating a relationship
+    - **Super Key** − A set of attributes (one or more) that collectively identifies an entity in an entity set.
+    - **Candidate Key** − A minimal super key is called a candidate key. An entity set may have more than one candidate key.
+    - **Primary Key** − A primary key is one of the candidate keys chosen by the database designer to uniquely identify the entity set.
+    - **Foreign Key** - A Foreign key is a key that links to primary keys in other tables, thereby creating a relationship
 
 3. **DBMS - ER Diagram Representation**
 
@@ -75,8 +75,8 @@ Extends The EshopJAXRS project to connect to a Database
 
 6. **JDBC:**
 
-   **JDBC API:** This provides the application-to-JDBC Manager connection.
-   **JDBC Driver API:** This supports the JDBC Manager-to-Driver Connection.
+   **JDBC API:** This provides the application-to-JDBC Manager connection.<br/>
+   **JDBC Driver API:** This supports the JDBC Manager-to-Driver Connection.<br/>
     (see /docs/jdbc-architecture.jpg)
 
     - **Connection**
