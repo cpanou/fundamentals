@@ -11,43 +11,45 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
 
 1. **Introduction to HTTP**
 
-    HTTP is a protocol which allows the fetching of resources. It is the foundation of any data exchange on the Web and it is a client-server protocol, which means requests are initiated by the recipient.Clients and servers communicate by exchanging individual messages. When a client wants to communicate with a server it will send an HTTP message and the server will answer with his own. There are two typesof HTTP messages, requests and responses, each with its own format:
-
-    - **HTTP REQUEST:**
+    HTTP is a protocol which allows the fetching of resources. It is the foundation of any data exchange on the Web and it is a client-server protocol, which means requests are initiated by the recipient.Clients and servers communicate by exchanging individual messages. When a client wants to communicate with a server it will send an HTTP message and the server will answer with his own. 
+    
+    
+    There are two typesof HTTP messages, requests and responses, each with its own format:
+    1. **HTTP REQUEST:**
         1. An HTTP method (e.g. GET, POST, PUT, DELETE etc.).
         2. The path of the resource on the server
         3. The version of the HTTP protocol
         4. Optional Headers that convey additional context
         5. Optional body which contains a sent resource
 
-    - **HTTP Request Methods - Mapped to CRUD operations**
-         - **POST**
-         The HTTP POST method sends data to the server. The type of the body of the request is indicated by the Content-Type header.
-         - **GET**
-         The HTTP GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
-         - **PUT**
-         The HTTP PUT request method creates a new resource or replaces a representation of the target resource with the request payload.
-         - **DELETE**
-         The HTTP DELETE request method deletes the specified resource.
+        - **HTTP Request Methods - Mapped to CRUD operations**
+            - **POST**
+            The HTTP POST method sends data to the server. The type of the body of the request is indicated by the Content-Type header.
+            - **GET**
+            The HTTP GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
+            - **PUT**
+            The HTTP PUT request method creates a new resource or replaces a representation of the target resource with the request payload.
+            - **DELETE**
+            The HTTP DELETE request method deletes the specified resource.
 
-    - **HTTP RESPONSE:**
+    2. **HTTP RESPONSE:**
         1. The version of the HTTP protocol they follow.
         2. A status code, indicating if the request was successful, or not, and why.
         3. A status message, a non-authoritative short description of the status code.
         4. HTTP headers, like those for requests.
         5. Optionally, a body containing the fetched resource.
             
-    - **HTTP Response Status Codes**
-        - **1xx: Informational**
-         It means the request was received and the process is continuing.
-        - **2xx: Success**
-         It means the action was successfully received, understood, and accepted.
-        - **3xx: Redirection**
-         It means further action must be taken in order to complete the request.
-        - **4xx: Client Error**
-         It means the request contains incorrect syntax or cannot be fulfilled.
-        - **5xx: Server Error**
-         It means the server failed to fulfill an apparently valid request.
+        - **HTTP Response Status Codes**
+            - **1xx: Informational**
+            It means the request was received and the process is continuing.
+            - **2xx: Success**
+            It means the action was successfully received, understood, and accepted.
+            - **3xx: Redirection**
+            It means further action must be taken in order to complete the request.
+            - **4xx: Client Error**
+            It means the request contains incorrect syntax or cannot be fulfilled.
+            - **5xx: Server Error**
+            It means the server failed to fulfill an apparently valid request.
 
     [examples](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview#HTTP_Messages)<br/>
     [examples](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)<br/>
