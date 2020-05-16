@@ -1,7 +1,7 @@
 package com.company.eshop.exceptions;
 
 import com.company.eshop.dtos.ErrorMessage;
-import com.sun.org.apache.xerces.internal.util.ErrorHandlerProxy;
+
 
 import javax.ws.rs.core.Response;
 
