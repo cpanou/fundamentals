@@ -31,27 +31,27 @@ Extends The EshopJAXRS project to connect to a Database
 
 4. **SQL Basics:**
 
-    INSERT: - Inserts a row ( entry, record ) to a database table
-        
-        INSERT INTO table-name (column-names) 
-        VALUES (values)
-
-    SELECT: - Retriveves rows from the database in a result-set
-        
-        SELECT column-names 
-        FROM table-name
-
-    UPDATE: - Updates existing records in a database
-        
+    **INSERT** - Inserts a row ( entry, record ) to a database table
+      ```SQL
+      INSERT INTO table-name (column-names) 
+      VALUES (values)
+      ```
+    **SELECT** - Retriveves rows from the database in a result-set
+      ```SQL
+      SELECT column-names 
+      FROM table-name
+      ```
+    **UPDATE** - Updates existing records in a database
+      ```SQL  
         UPDATE table-name
         SET column-name = value, column-name = value, ...
         WHERE condition
-
-    DELETE: - Removes records from a database table
-
+      ```
+    **DELETE** - Removes records from a database table
+      ```SQL
         DELETE table-name 
         WHERE condition
-
+      ```
 5. **Setting up Walkthrough:**
 
     - Download [MySQL installer](https://dev.mysql.com/downloads/installer/)
