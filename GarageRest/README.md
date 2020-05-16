@@ -20,7 +20,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
         2. The path of the resource on the server
         3. The version of the HTTP protocol
         4. Optional Headers that convey additional context
-        5. Optional body which contains a sent resource
+        5. Optional body which contains a sent resource<br/>
 
         - **HTTP Request Methods**
             - **POST**
@@ -37,7 +37,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
         2. A status code, indicating if the request was successful, or not, and why.
         3. A status message, a non-authoritative short description of the status code.
         4. HTTP headers, like those for requests.
-        5. Optionally, a body containing the fetched resource.
+        5. Optionally, a body containing the fetched resource.<br/>
             
         - **HTTP Response Status Codes**
             - **1xx: Informational**
@@ -109,7 +109,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
         1. JAX-RS Annotations
 
             - **@Path("resourcePath"):** It is used to match the URI path which is relative to the base URI. It can be specified on resource classes or methods.
-                ```
+                ```java
                 @Path("/cars")
                 public class CarsResource {
                     @GET
@@ -120,7 +120,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
                 }
                 ```
             - **@GET** Annotated method will handle the HTTP GET requests on matching resource path.
-                ```
+                ```java
                 @GET
                 @Path("/{carId}")
                 public Car getCar( @PathParam("carId") long id ) {
@@ -128,7 +128,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
                 }
                 ```
             - **@POST** Annotated method will handle the HTTP POST requests on matching resource path.
-                ```
+                ```java
                 @POST
                 @Consumes(MediaType.APPLICATION_JSON)
                 @Produces(MediaType.APPLICATION_JSON)
@@ -137,7 +137,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
                 }
                 ```
             - **@PUT** Annotated method will handle the HTTP PUT requests on matching resource path.
-                ```
+                ```java
                 @PUT
                 @Path("/{carId}")
                 @Produces(MediaType.APPLICATION_JSON)
@@ -147,7 +147,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
                 }
                 ```
             - **@DELETE** Annotated method will handle the HTTP DELETE requests on matching resource path.
-                ```
+                ```java
                 @DELETE
                 @Path("/{carId}")
                 @Produces(MediaType.APPLICATION_JSON)
@@ -156,7 +156,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
                 }
                 ```
             - **@PathParam("ParameterName")** It is used to inject values (resource identifiers) from the URL into a method parameter.
-                ```
+                ```java
                 @GET
                 @Path("/{carId}")
                 public Car getCar( @PathParam("carId") long id ) {
@@ -166,7 +166,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
                 In the above example the value of carId will match to @PathParam("carId") long id. For example an HTTP GET /cars/1 will be matched to the above method and the id will be populated with '1'.
 
             - **@Consumes** It defines which MediaType is consumed by annotated resource method.
-                ```
+                ```java
                 @POST
                 @Consumes(MediaType.APPLICATION_JSON)
                 @Produces(MediaType.APPLICATION_JSON)
@@ -175,7 +175,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
                 }
                 ```
             - **@Produces** It defines which MediaType is delivered by annotated resource methods. It can be defined at class level as well as method level. If defined at class level, all methods inside inside resource class will be returning same MIME type, if not overridden in any method.
-                ```
+                ```java
                 @POST
                 @Consumes(MediaType.APPLICATION_JSON)
                 @Produces(MediaType.APPLICATION_JSON)
@@ -185,7 +185,7 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
                 ```
         2. Register the Resource 
             - To register the JAX-RS REST resource with the server’s runtime, we need to extend javax.ws.rs.core.Application. This class tells our application server which JAX-RS components we want to register.The getClasses() method returns a list of JAX-RS service classes. Here we need to provide the CarsResource class so it can be discovered by the server's runtime.
-            ```            
+            ```java            
             @ApplicationPath("/garage")
             public class MyApplication extends Application {
                     @Override
