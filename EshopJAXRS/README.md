@@ -16,14 +16,14 @@ A more advanced REST service that includes a more complex Application Model, sho
                 http://{localhost:8080}/{eshop_war/eshop}/{users}
 
         - resource paths:
-
-            /users                              exposes all users
-            /users/{user-id}                    exposes a single user under his {user-id}
-            /users/{user-id}/cart               exposes a single user's cart
-            /users/{user-id}/cart/{product-id}  exposes a single product under a user's cart
-            /products                           exposes all products
-            /products/{product-id}              exposes a single product under its {product-id}
-
+        <pre>
+            **/users**                              exposes all users
+            **/users/{user-id}**                    exposes a single user under his {user-id}
+            **/users/{user-id}/cart**               exposes a single user's cart
+            **/users/{user-id}/cart/{product-id}**  exposes a single product under a user's cart
+            **/products**                           exposes all products
+            **/products/{product-id}**              exposes a single product under its {product-id}
+        </pre>
 
     - Supported Operations:
         - Retrieve the List of all Users 
@@ -38,17 +38,18 @@ A more advanced REST service that includes a more complex Application Model, sho
         - Retrieve a Product
 
     - Operations to HTTP methods:
-        - Retrieve the List of all Users           GET	     /users	                              
+        <pre>
+        - Retrieve the List of all Users           GET       /users	                              
         - Create a new User                        POST      /users	                            
-        - Retrieve a User                          GET	     /users/{user-id}	                   
-        - Retrieve a User’s cart                   GET	     /users/{user-id}/cart             	  
+        - Retrieve a User                          GET       /users/{user-id}	                   
+        - Retrieve a User’s cart                   GET       /users/{user-id}/cart             	  
         - Add a Product to a User’s cart           POST      /users/{user-id}/cart	              
         - Removes a product from the user’s cart   DELETE    /users/{user-id}/cart/{product-id}	
-        - Checkout a user                          GET	     /users/{user-id}/checkout	          
-        - Returns a list of all the products       GET	     /products	                          
+        - Checkout a user                          GET       /users/{user-id}/checkout	          
+        - Returns a list of all the products       GET       /products	                          
         - Create a new Product                     POST      /products	                          
-        - Retrieve a Product                       GET	     /products/{product-id}	              
-
+        - Retrieve a Product                       GET       /products/{product-id}	              
+        </pre>
 
 2. **Error Handling**
 
