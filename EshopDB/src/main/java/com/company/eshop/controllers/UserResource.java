@@ -24,7 +24,6 @@ public class UserResource {
         log.info("get All Users Invoked ");
         return Response.ok(service.getUsers())
                 .build();
-
     }
 
     @POST

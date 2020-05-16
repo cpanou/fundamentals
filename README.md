@@ -3,18 +3,31 @@
 Each project in the repository contains its own readme.md file with specific information as well as a **doc** folder with useful resources.
 
 ## repository breakdown
-   1. **EshopJAXRS:**
+
+   1. **GarageRest:**
+       First Rest Application showcasing:
+       - HTTP and JAX-RS Resources
+       - Mapping the uris to the Resources
+       - Assigning HTTP Methods to Resource methods
+       - JAX-RS Application class for deployment
+       - Controller - Service - Repository Architectural Pattern
+        
+
+   2. **EshopJAXRS:**
        Full Eshop Rest Service implementation with JAX-RS showcasing:
-       - Controller-Service-Repository pattern
+       - The Eshop Project
        - Error Handling
+       - Expanding Controller-Service-Repository pattern
        - Data Transfer Objects
        - Mapping Dtos to model objects
         
 
-   2. **EshopDB:**
+   3. **EshopDB:**
        Adds a Database:
+       - Introduction to dabases and data models
        - ER Diagram based on the Application Model
-       - SQL script to create the database
+       - SQL to query the data
+       - SQL scripts to create the database
        - Using JDBC to connect to the database and execute queries
 
 
