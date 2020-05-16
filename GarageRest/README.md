@@ -13,45 +13,45 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
 
     HTTP is a protocol which allows the fetching of resources. It is the foundation of any data exchange on the Web and it is a client-server protocol, which means requests are initiated by the recipient.Clients and servers communicate by exchanging individual messages. When a client wants to communicate with a server it will send an HTTP message and the server will answer with his own. There are two typesof HTTP messages, requests and responses, each with its own format:
 
-       - HTTP REQUEST:
-           1. An HTTP method (e.g. GET, POST, PUT, DELETE etc.).
-           2. The path of the resource on the server
-           3. The version of the HTTP protocol
-           4. Optional Headers that convey additional context
-           5. Optional body which contains a sent resource
+    - **HTTP REQUEST:**
+        1. An HTTP method (e.g. GET, POST, PUT, DELETE etc.).
+        2. The path of the resource on the server
+        3. The version of the HTTP protocol
+        4. Optional Headers that convey additional context
+        5. Optional body which contains a sent resource
 
-       - HTTP Request Methods - Mapped to CRUD operations
-            **POST    -   CREATE**
-            The HTTP POST method sends data to the server. The type of the body of the request is indicated by the Content-Type header.
-            **GET     -   READ**
-            The HTTP GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
-            **PUT     -   UPDATE**
-            The HTTP PUT request method creates a new resource or replaces a representation of the target resource with the request payload.
-            **DELETE  -   DELETE**
-            The HTTP DELETE request method deletes the specified resource.
+    - **HTTP Request Methods - Mapped to CRUD operations**
+         - **POST**
+         The HTTP POST method sends data to the server. The type of the body of the request is indicated by the Content-Type header.
+         - **GET**
+         The HTTP GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
+         - **PUT**
+         The HTTP PUT request method creates a new resource or replaces a representation of the target resource with the request payload.
+         - **DELETE**
+         The HTTP DELETE request method deletes the specified resource.
 
-       - HTTP RESPONSE:
-           1. The version of the HTTP protocol they follow.
-           2. A status code, indicating if the request was successful, or not, and why.
-           3. A status message, a non-authoritative short description of the status code.
-           4. HTTP headers, like those for requests.
-           5. Optionally, a body containing the fetched resource.
-               
-       - HTTP Response Status Codes - Mapped to CRUD operations
-            **1xx: Informational**
-            It means the request was received and the process is continuing.
-            **2xx: Success**
-            It means the action was successfully received, understood, and accepted.
-            **3xx: Redirection**
-            It means further action must be taken in order to complete the request.
-            **4xx: Client Error**
-            It means the request contains incorrect syntax or cannot be fulfilled.
-            **5xx: Server Error**
-            It means the server failed to fulfill an apparently valid request.
+    - **HTTP RESPONSE:**
+        1. The version of the HTTP protocol they follow.
+        2. A status code, indicating if the request was successful, or not, and why.
+        3. A status message, a non-authoritative short description of the status code.
+        4. HTTP headers, like those for requests.
+        5. Optionally, a body containing the fetched resource.
+            
+    - **HTTP Response Status Codes**
+        - **1xx: Informational**
+         It means the request was received and the process is continuing.
+        - **2xx: Success**
+         It means the action was successfully received, understood, and accepted.
+        - **3xx: Redirection**
+         It means further action must be taken in order to complete the request.
+        - **4xx: Client Error**
+         It means the request contains incorrect syntax or cannot be fulfilled.
+        - **5xx: Server Error**
+         It means the server failed to fulfill an apparently valid request.
 
-    [examples](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview#HTTP_Messages)
-    [examples](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)
-    [examples](https://www.tutorialspoint.com/http/http_message_examples.htm)
+    [examples](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview#HTTP_Messages)<br/>
+    [examples](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)<br/>
+    [examples](https://www.tutorialspoint.com/http/http_message_examples.htm)<br/>
 
 2. **REST - JAX-RS:**
 
@@ -76,25 +76,28 @@ The above operations are refered to as CRUD operations (CREATE - READ - UPDATE -
     Resources are decoupled from their representation so that their content can be accessed in a variety of formats, such as HTML, XML, plain text, PDF, JPEG, JSON, and others. Metadata about the resource is available and used, for example, negotiate the appropriate representation format, and perform authentication or access control. And most importantly, every interaction with a resource is stateless.
 
     2. **Designing a REST Service:**
-        - Identify Object Model
+        - **Identify Object Model:**
             identifying the objects which will be presented as resources. In our case the Object is the Car. Each car will have an id to act as a unique identifier in its URI.
 
-        - Create Model URIs
+        - **Create Model URIs:**
+        <pre>
             These resource URIs are endpoints for RESTful services. In our application the car is the only resource so the uris will look like:
                - /cars              : exposes the collection of cars
                - /cars/{car-id}     : exposes a single car
             URIs do not use any verb or operation. It’s very important to not include any verb in URIs. URIs should all be nouns only.
-
-        - Determine Representations
+        </pre>
+        - **Determine Representations**
             In our Application we will use the JSON format to represent the resources.
 
-        - Assign HTTP Methods
+        - **Assign HTTP Methods**
+        <pre>
             Let’s identify the possible operations in the application and map them on resource URIs and HTTP methods:
             - Retrieve all the available cars:  HTTP GET    /cars
             - Create a new car:                 HTTP POST   /cars
             - Retrieve a single car:            HTTP GET    /cars/{car-id}
             - Update a single car:              HTTP PUT    /cars/{car-id}
             - Remove a car:                     HTTP DELETE /cars/{car-id}
+        </pre>
 
     3. **Using JAX-RS to implement the Service**
         JAX-RS focuses on applying Java annotations to plain Java objects. JAX-RS has annotations to bind specific URI patterns and HTTP operations to individual methods of your Java class. It also has annotations which can help you handle in input/output parameters.
