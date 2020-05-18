@@ -1,8 +1,102 @@
-# Fullstack - Fundamentals
+# Java Essentials
 
-Each project in the repository contains its own readme.md file with specific information as well as a **doc** folder with useful resources.
+   1. **Object Oriented Programming:**
+       - Classes.
+       - Objects.
+       - Inheritence.
+       - Polymorphism.
+    
+   2. **First Programm in Java**
+       - Essential keywords.
+       - Variables, Data Types.
+       - Operators, operator precedence.
+       - Type Casting.
+       - Hanlding User Input.
+       - Conditional statements, Loops.
+       - Generic Types.
+
+       Related Projects:
+       - [Hello World](https://github.com/cpanou/fundamentals/Hello World)
+    
+
+   3. **First Java Application**
+       - First OOP application in Java.
+       - Inheritence/polymorphism in practice.
+       - Exception Handling.
+       - Beyond Simple pojo inheritence.
+       - Usefull Design Patterns.
+
+       Related Projects:
+       - [Hello World](https://github.com/cpanou/fundamentals/Hello World)
+       - [Garage](https://github.com/cpanou/fundamentals/Garage)
+       - [Zoo](https://github.com/cpanou/fundamentals/Zoo)
+       - [RealEstate](https://github.com/cpanou/fundamentals/RealEstate)
+       - [BeyondSimplePojoInheritence](https://github.com/cpanou/fundamentals/BeyondSimplePojoInheritence)
+       - [EshopDesignPatterns](https://github.com/cpanou/fundamentals/EshopDesignPatterns)
+
+   4. **Create User-Interfaces in Java**
+       - Missing
+       
+   5. **Servlets replaced with Jax-RS**
+       - Introductino to HTTP and the WEB.
+       - Introduction to Rest Services.
+       - Implementing a simple service.
+       - Deploy the service on Tomcat.
+       - Design and implement a full scale Restful web-service.
+       - Best Practices.
+       - Leveraging Spring boot.
+
+       Related Projects:
+       - [GarageRest](https://github.com/cpanou/fundamentals/GarageRest)
+       - [EshopJAXRS](https://github.com/cpanou/fundamentals/EshopJAXRS)
+       - [EshopSpring](https://github.com/cpanou/fundamentals/EshopSpring)
+
+   
+   6. **Connecting to a database**
+       - Introduction to databases.
+       - Creating a schema.
+       - Setting up MySQL.
+       - Connecting a java application to the database.
+
+       Related Projects:
+       - [EshopDB](https://github.com/cpanou/fundamentals/EshopJAXRS)
+       - [EshopSpring](https://github.com/cpanou/fundamentals/EshopSpring)
 
 ## repository breakdown
+
+Each project in the repository contains its own readme.md file with specific information as well as a **doc** folder with useful resources.
+   
+   1. **Hello World:**
+       First Programm in Java:
+       - public static void main(){}
+       - The Person Class.
+       - Creating Objects.
+       - Simple Operations.
+       - Object references.
+
+   1. **GarageRest:**
+       First Rest Application showcasing:
+       - HTTP and JAX-RS Resources
+       - Mapping the uris to the Resources
+       - Assigning HTTP Methods to Resource methods
+       - JAX-RS Application class for deployment
+       - Controller - Service - Repository Architectural Pattern
+
+   1. **GarageRest:**
+       First Rest Application showcasing:
+       - HTTP and JAX-RS Resources
+       - Mapping the uris to the Resources
+       - Assigning HTTP Methods to Resource methods
+       - JAX-RS Application class for deployment
+       - Controller - Service - Repository Architectural Pattern
+
+   1. **GarageRest:**
+       First Rest Application showcasing:
+       - HTTP and JAX-RS Resources
+       - Mapping the uris to the Resources
+       - Assigning HTTP Methods to Resource methods
+       - JAX-RS Application class for deployment
+       - Controller - Service - Repository Architectural Pattern  
 
    1. **GarageRest:**
        First Rest Application showcasing:
