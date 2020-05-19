@@ -7,7 +7,7 @@
        - Polymorphism.
     
        Related Projects:
-       - [Hello World](https://github.com/cpanou/fundamentals/Hello World)
+       - [Hello World](https://github.com/cpanou/fundamentals/tree/master/Hello%20World)
        
     
    2. **Rest Web Services**
