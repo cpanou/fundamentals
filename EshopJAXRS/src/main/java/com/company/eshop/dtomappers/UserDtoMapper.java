@@ -24,7 +24,6 @@ public class UserDtoMapper {
                 user.getEmail(),
                 user.getFirstName(),
                 user.getLastName());
-
     }
 
     // User -> GetUserResponse
