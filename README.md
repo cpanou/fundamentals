@@ -22,7 +22,6 @@
        Related Projects:
        - [GarageRest](https://github.com/cpanou/fundamentals/GarageRest)
        - [EshopJAXRS](https://github.com/cpanou/fundamentals/EshopJAXRS)
-       - [EshopSpring](https://github.com/cpanou/fundamentals/EshopSpring)
 
    
    3. **Connecting to a database**
@@ -33,7 +32,6 @@
 
        Related Projects:
        - [EshopDB](https://github.com/cpanou/fundamentals/EshopJAXRS)
-       - [EshopSpring](https://github.com/cpanou/fundamentals/EshopSpring)
 
 ## repository breakdown
 
