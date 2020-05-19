@@ -20,9 +20,8 @@
        - Leveraging Spring boot.
 
        Related Projects:
-       - [GarageRest](https://github.com/cpanou/fundamentals/GarageRest)
-       - [EshopJAXRS](https://github.com/cpanou/fundamentals/EshopJAXRS)
-       - [EshopSpring](https://github.com/cpanou/fundamentals/EshopSpring)
+       - [GarageRest](https://github.com/cpanou/fundamentals/tree/master/GarageRest)
+       - [EshopJAXRS](https://github.com/cpanou/fundamentals/tree/master/EshopJAXRS)
 
    
    3. **Connecting to a database**
@@ -32,8 +31,7 @@
        - Connecting a java application to the database.
 
        Related Projects:
-       - [EshopDB](https://github.com/cpanou/fundamentals/EshopJAXRS)
-       - [EshopSpring](https://github.com/cpanou/fundamentals/EshopSpring)
+       - [EshopDB](https://github.com/cpanou/fundamentals/tree/master/EshopDB)
 
 ## repository breakdown
 
