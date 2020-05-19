@@ -92,11 +92,28 @@ Extends The EshopJAXRS project to connect to a Database
             }
             ```
         3. Database URL Formulation: This is to create a properly formatted address that points to the database to which you wish to connect.
+            ```
+            [Driver=jdbc:mysql:]//[domain=localhost]:[port=3306]/[Schema Name = eshop]?autoReconnect=true&useSSL=false&allowMultiQueries=false
+            ```
         4. Create Connection Object: Finally, code a call to the DriverManager object's getConnection( ) method to establish actual database connection.
+            ```Java
+            public static Connection createConnection() {
+                //create connection object
+                Connection connection = null;
+                try {
+                    //user the Driver manager to establish the connection and return the Connection object
+                    connection = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return connection;
+            }
+            ```
 
     - **Statements**
         1. Statement - Use this for general-purpose access to your database. Useful when you are using static SQL statements at runtime. The Statement interface cannot accept parameters.
             ([example](https://www.tutorialspoint.com/jdbc/statement-object-example.htm))
+            
         2. PreparedStatement - Use this when you plan to use the SQL statements many times. The PreparedStatement interface accepts input parameters at runtime.
             ([example](https://www.tutorialspoint.com/jdbc/preparestatement-object-example.htm))
 

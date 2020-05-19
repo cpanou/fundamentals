@@ -6,38 +6,11 @@
        - Inheritence.
        - Polymorphism.
     
-   2. **First Programm in Java**
-       - Essential keywords.
-       - Variables, Data Types.
-       - Operators, operator precedence.
-       - Type Casting.
-       - Hanlding User Input.
-       - Conditional statements, Loops.
-       - Generic Types.
-
        Related Projects:
        - [Hello World](https://github.com/cpanou/fundamentals/Hello World)
-    
-
-   3. **First Java Application**
-       - First OOP application in Java.
-       - Inheritence/polymorphism in practice.
-       - Exception Handling.
-       - Beyond Simple pojo inheritence.
-       - Usefull Design Patterns.
-
-       Related Projects:
-       - [Hello World](https://github.com/cpanou/fundamentals/Hello World)
-       - [Garage](https://github.com/cpanou/fundamentals/Garage)
-       - [Zoo](https://github.com/cpanou/fundamentals/Zoo)
-       - [RealEstate](https://github.com/cpanou/fundamentals/RealEstate)
-       - [BeyondSimplePojoInheritence](https://github.com/cpanou/fundamentals/BeyondSimplePojoInheritence)
-       - [EshopDesignPatterns](https://github.com/cpanou/fundamentals/EshopDesignPatterns)
-
-   4. **Create User-Interfaces in Java**
-       - Missing
        
-   5. **Servlets replaced with Jax-RS**
+    
+   2. **Rest Web Services**
        - Introductino to HTTP and the WEB.
        - Introduction to Rest Services.
        - Implementing a simple service.
@@ -52,7 +25,7 @@
        - [EshopSpring](https://github.com/cpanou/fundamentals/EshopSpring)
 
    
-   6. **Connecting to a database**
+   3. **Connecting to a database**
        - Introduction to databases.
        - Creating a schema.
        - Setting up MySQL.
@@ -74,31 +47,7 @@ Each project in the repository contains its own readme.md file with specific inf
        - Simple Operations.
        - Object references.
 
-   1. **GarageRest:**
-       First Rest Application showcasing:
-       - HTTP and JAX-RS Resources
-       - Mapping the uris to the Resources
-       - Assigning HTTP Methods to Resource methods
-       - JAX-RS Application class for deployment
-       - Controller - Service - Repository Architectural Pattern
-
-   1. **GarageRest:**
-       First Rest Application showcasing:
-       - HTTP and JAX-RS Resources
-       - Mapping the uris to the Resources
-       - Assigning HTTP Methods to Resource methods
-       - JAX-RS Application class for deployment
-       - Controller - Service - Repository Architectural Pattern
-
-   1. **GarageRest:**
-       First Rest Application showcasing:
-       - HTTP and JAX-RS Resources
-       - Mapping the uris to the Resources
-       - Assigning HTTP Methods to Resource methods
-       - JAX-RS Application class for deployment
-       - Controller - Service - Repository Architectural Pattern  
-
-   1. **GarageRest:**
+   2. **GarageRest:**
        First Rest Application showcasing:
        - HTTP and JAX-RS Resources
        - Mapping the uris to the Resources
@@ -107,7 +56,7 @@ Each project in the repository contains its own readme.md file with specific inf
        - Controller - Service - Repository Architectural Pattern
         
 
-   2. **EshopJAXRS:**
+   3. **EshopJAXRS:**
        Full Eshop Rest Service implementation with JAX-RS showcasing:
        - The Eshop Project
        - Error Handling
@@ -116,7 +65,7 @@ Each project in the repository contains its own readme.md file with specific inf
        - Mapping Dtos to model objects
         
 
-   3. **EshopDB:**
+   4. **EshopDB:**
        Adds a Database:
        - Introduction to dabases and data models
        - ER Diagram based on the Application Model
