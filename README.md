@@ -11,7 +11,7 @@
        
     
    2. **Rest Web Services**
-       - Introductino to HTTP and the WEB.
+       - Introduction to HTTP and the WEB.
        - Introduction to Rest Services.
        - Implementing a simple service.
        - Deploy the service on Tomcat.
