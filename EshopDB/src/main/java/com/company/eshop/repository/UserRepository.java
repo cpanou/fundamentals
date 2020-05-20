@@ -42,6 +42,11 @@ public class UserRepository {
      *
      * */
     public List<User> getUsers() {
+        //(1) Connect to DB
+        //(2) Create the query : SELECT * FROM USERS;
+        //(3) execute the query in DB
+        //(4) returns Result Set
+        //(5) map Result Set to Java User
         return users;
     }
 
