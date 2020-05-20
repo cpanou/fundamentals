@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseUtils {
+public class DataBaseUtils {
 
     public static String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String dbName= "eshop";
