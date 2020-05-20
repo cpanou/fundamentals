@@ -41,7 +41,7 @@ public class OrderRepository {
     public List<Order> getOrders(){
         log.info("fetching all orders");
         List<Order> orders = new ArrayList<>();
-        try (Connection connection = DatabaseUtils.createConnection();
+        try (Connection connection = DataBaseUtils.createConnection();
              Statement statement = connection.createStatement()){
 
             ResultSet resultSet = statement.executeQuery(OrderTemplate.QUERY_SELECT_ALL_ORDERS);
@@ -58,7 +58,7 @@ public class OrderRepository {
     public Order getOrder(long orderId) {
         Order order = null;
         log.info("fetching order with id: " + orderId);
-        try (Connection connection = DatabaseUtils.createConnection();
+        try (Connection connection = DataBaseUtils.createConnection();
              PreparedStatement statement = connection.prepareStatement(OrderTemplate.QUERY_SELECT_ORDER_ID)){
 
             ResultSet resultSet = statement.executeQuery();
@@ -74,7 +74,7 @@ public class OrderRepository {
 
     public Order addOrder(Order order) {
         log.info("Creating order: " + order.getOrderId());
-        try (Connection connection = DatabaseUtils.createConnection();
+        try (Connection connection = DataBaseUtils.createConnection();
              PreparedStatement statement = connection.prepareStatement(OrderTemplate.QUERY_INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement orderProductsStatement = connection.prepareStatement(OrderProductTemplate.QUERY_INSERT_ORDER_PRODUCTS)) {
 
@@ -124,7 +124,7 @@ public class OrderRepository {
     public Order deleteOrder(long orderId) {
         log.info("Deleting order with id: " + orderId);
         Order order = null;
-        try (Connection connection = DatabaseUtils.createConnection();
+        try (Connection connection = DataBaseUtils.createConnection();
              Statement selectOrderStatement = connection.createStatement();
              PreparedStatement statement = connection.prepareStatement(OrderTemplate.QUERY_DELETE_ORDER)){
 

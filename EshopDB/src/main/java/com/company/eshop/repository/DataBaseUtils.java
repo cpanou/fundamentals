@@ -14,7 +14,7 @@ public class DataBaseUtils {
 
     public static boolean registerJDBCDriver() {
         //(1) Specify the JDBC Driver
-        //The JVM needs to have an implementation of the driver name (com.mysql.jdbc.Driver)
+        //The JVM needs to have an implementation of the driver name (com.mysql.cj.jdbc.Driver)
         //(2) Update the pom file with the mysql-connector-java jar
         try {
             Class.forName(JDBC_DRIVER);

@@ -17,7 +17,6 @@ public class CartStore {
     public static CartStore getInstance() {
         return instance;
     }
-
     public Cart getCart(long id) {
         return cartMap.get(id);
     }

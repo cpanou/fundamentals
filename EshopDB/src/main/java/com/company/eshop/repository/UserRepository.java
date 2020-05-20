@@ -18,7 +18,7 @@ public class UserRepository {
         Statement statement = null;
         try {
             // (1) Create a connection to the Database
-            dbConn = DatabaseUtils.createConnection();
+            dbConn = DataBaseUtils.createConnection();
 
             //(2) Once we have a Connection with the database we can use it
             //to create a Statement to query the data
@@ -64,11 +64,9 @@ public class UserRepository {
         return usersList;
     }
 
-    // PREPARED - STATEMENT EXAMPLE
     public User getDBUser(long userId) {
         User user = null;
-
-        try (Connection connection = DatabaseUtils.createConnection();
+        try (Connection connection = DataBaseUtils.createConnection();
              PreparedStatement statement = connection.prepareStatement(UserTemplate.QUERY_SELECT_USER_ID)) {
 
             statement.setLong(1, userId);
@@ -84,7 +82,7 @@ public class UserRepository {
     public User getDBUser(String username) {
         User user = null;
 
-        try (Connection connection = DatabaseUtils.createConnection();
+        try (Connection connection = DataBaseUtils.createConnection();
              PreparedStatement statement = connection.prepareStatement(UserTemplate.QUERY_SELECT_USER_USERNAME)) {
 
             statement.setString(1, username);
@@ -107,7 +105,7 @@ public class UserRepository {
 
     // PREPARED - STATEMENT EXAMPLE
     public User createDBUser(User user) {
-        try (Connection connection = DatabaseUtils.createConnection();
+        try (Connection connection = DataBaseUtils.createConnection();
              PreparedStatement statement = connection.prepareStatement(UserTemplate.QUERY_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
              PreparedStatement fetchUserStatement = connection.prepareStatement(UserTemplate.QUERY_SELECT_USER_ID)) {
 
@@ -150,7 +148,7 @@ public class UserRepository {
         if (toBeDeleted == null)
             return null;
 
-        try (Connection connection = DatabaseUtils.createConnection();
+        try (Connection connection = DataBaseUtils.createConnection();
              PreparedStatement statement = connection.prepareStatement(UserTemplate.QUERY_DELETE_USER)) {
             statement.setLong(1, userId);
 
