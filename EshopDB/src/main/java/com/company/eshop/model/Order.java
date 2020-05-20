@@ -1,6 +1,6 @@
 package com.company.eshop.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,8 +8,8 @@ public class Order {
     private long orderId;
 
     private long userId;
-    private LocalDateTime submitted;
-    private LocalDateTime processed;
+    private LocalDateTime submittedDate;
+    private LocalDateTime processedDate;
     private OrderStatus status;
 
     private List<Product> products;
@@ -19,8 +19,8 @@ public class Order {
     public Order(long orderId, long userId, LocalDateTime submitted, LocalDateTime processed, List<Product> products) {
         this.orderId = orderId;
         this.userId = userId;
-        this.submitted = submitted;
-        this.processed = processed;
+        this.submittedDate = submitted;
+        this.processedDate = processed;
         this.products = products;
     }
 
@@ -40,20 +40,20 @@ public class Order {
         this.userId = userId;
     }
 
-    public LocalDateTime getSubmitted() {
-        return submitted;
+    public LocalDateTime getSubmittedDate() {
+        return submittedDate;
     }
 
-    public void setSubmitted(LocalDateTime submitted) {
-        this.submitted = submitted;
+    public void setSubmittedDate(LocalDateTime submittedDate) {
+        this.submittedDate = submittedDate;
     }
 
-    public LocalDateTime getProcessed() {
-        return processed;
+    public LocalDateTime getProcessedDate() {
+        return processedDate;
     }
 
-    public void setProcessed(LocalDateTime processed) {
-        this.processed = processed;
+    public void setProcessedDate(LocalDateTime processedDate) {
+        this.processedDate = processedDate;
     }
 
     public List<Product> getProducts() {
@@ -72,4 +72,7 @@ public class Order {
         this.status = status;
     }
 
+    public void setStatus(String status) {
+        this.status = OrderStatus.valueOf(status);
+    }
 }

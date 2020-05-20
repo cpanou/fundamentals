@@ -4,34 +4,45 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DataBaseUtils {
-    public static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    //database name
+public class DatabaseUtils {
+
+    public static String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String dbName= "eshop";
-    //database url to establish connection
     public static final String dbUrl = "jdbc:mysql://localhost:3306/"+dbName+"?autoReconnect=true&useSSL=false&allowMultiQueries=false";
-    //database connection credentials
     public static final String dbUser = "root";
     public static final String dbPwd = "admin123";
 
-    public static void registerDriverName() {
+    public static boolean registerJDBCDriver() {
+        //(1) Specify the JDBC Driver
+        //The JVM needs to have an implementation of the driver name (com.mysql.jdbc.Driver)
+        //(2) Update the pom file with the mysql-connector-java jar
         try {
-            //Register Driver for MySQL Connection
             Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
-    public static Connection createConnection() {
-        //create connection object
+    /**
+     * Method to create DB Connection
+     */
+    public static Connection createConnection(){
+        //(3) Create a jdbc connection object
         Connection connection = null;
         try {
-            //user the Driver manager to establish the connection and return the Connection object
+            System.out.println("Connecting to database...");
+            //(4) Use the Driver Manager to create the Connection Object
+            //The Url connects to the mysql server and schema
+            //we need to use the username and password for the connection
             connection = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
-        } catch (SQLException e) {
+
+        }catch ( SQLException e) {
+            //ERROR - driver for connection not found!!
             e.printStackTrace();
         }
+
         return connection;
     }
 
