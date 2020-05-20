@@ -4,6 +4,7 @@ import com.company.eshop.controllers.ProductResource;
 import com.company.eshop.controllers.UserResource;
 import com.company.eshop.providers.ApplicationExceptionMapper;
 import com.company.eshop.providers.WebApplicationExceptionMapper;
+import com.company.eshop.repository.DataBaseUtils;
 import com.company.eshop.repository.OrderRepository;
 import com.company.eshop.repository.ProductRepository;
 import com.company.eshop.repository.UserRepository;
@@ -32,6 +33,9 @@ public class MyApplication extends Application {
 
     public MyApplication() {
         super();
+
+        DataBaseUtils.registerDriverName();
+
         ProductRepository.init();
         UserRepository.init();
         OrderRepository.init();

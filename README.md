@@ -1,10 +1,51 @@
-# Fullstack - Fundamentals
+# Java Essentials
 
-Each project in the repository contains its own readme.md file with specific information as well as a **doc** folder with useful resources.
+   1. **Object Oriented Programming:**
+       - Classes.
+       - Objects.
+       - Inheritence.
+       - Polymorphism.
+    
+       Related Projects:
+       - [Hello World](https://github.com/cpanou/fundamentals/tree/master/Hello%20World)
+       
+    
+   2. **Rest Web Services**
+       - Introduction to HTTP and the WEB.
+       - Introduction to Rest Services.
+       - Implementing a simple service.
+       - Deploy the service on Tomcat.
+       - Design and implement a full scale Restful web-service.
+       - Best Practices.
+       - Leveraging Spring boot.
+
+       Related Projects:
+       - [GarageRest](https://github.com/cpanou/fundamentals/tree/master/GarageRest)
+       - [EshopJAXRS](https://github.com/cpanou/fundamentals/tree/master/EshopJAXRS)
+
+   
+   3. **Connecting to a database**
+       - Introduction to databases.
+       - Creating a schema.
+       - Setting up MySQL.
+       - Connecting a java application to the database.
+
+       Related Projects:
+       - [EshopDB](https://github.com/cpanou/fundamentals/tree/master/EshopDB)
 
 ## repository breakdown
 
-   1. **GarageRest:**
+Each project in the repository contains its own readme.md file with specific information as well as a **doc** folder with useful resources.
+   
+   1. **Hello World:**
+       First Programm in Java:
+       - public static void main(){}
+       - The Person Class.
+       - Creating Objects.
+       - Simple Operations.
+       - Object references.
+
+   2. **GarageRest:**
        First Rest Application showcasing:
        - HTTP and JAX-RS Resources
        - Mapping the uris to the Resources
@@ -13,7 +54,7 @@ Each project in the repository contains its own readme.md file with specific inf
        - Controller - Service - Repository Architectural Pattern
         
 
-   2. **EshopJAXRS:**
+   3. **EshopJAXRS:**
        Full Eshop Rest Service implementation with JAX-RS showcasing:
        - The Eshop Project
        - Error Handling
@@ -22,7 +63,7 @@ Each project in the repository contains its own readme.md file with specific inf
        - Mapping Dtos to model objects
         
 
-   3. **EshopDB:**
+   4. **EshopDB:**
        Adds a Database:
        - Introduction to dabases and data models
        - ER Diagram based on the Application Model

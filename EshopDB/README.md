@@ -6,7 +6,7 @@ Extends The EshopJAXRS project to connect to a Database
 
     **Entity** − An entity is a real-world entity having properties called attributes. For example, in a our database, a User is considered as an entity. Users has various attributes like username, email, firstname, etc.
 
-    **Relationship** − The logical association among entities is called a relationship. Relationships are mapped with entities in various ways. Mapping cardinalities define the number of associations between two         entities.
+    **Relationship** − The logical association among entities is called a relationship. Relationships are mapped with entities in various ways. Mapping cardinalities define the number of associations between two entities.
 
 2. **DBMS - ER Model Basic Concepts**
 
@@ -82,12 +82,38 @@ Extends The EshopJAXRS project to connect to a Database
     - **Connection**
         1. Import JDBC Packages: Add import statements to your Java program to import required classes in your Java code.
         2. Register JDBC Driver: This step causes the JVM to load the desired driver implementation into memory so it can fulfill your JDBC requests.
+            ```Java
+            public static void registerDriverName() {
+                try {
+                    Class.forName(JDBC_DRIVER);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            ```
         3. Database URL Formulation: This is to create a properly formatted address that points to the database to which you wish to connect.
+            ```
+            [Driver=jdbc:mysql:]//[domain=localhost]:[port=3306]/[Schema Name = eshop]?autoReconnect=true&useSSL=false&allowMultiQueries=false
+            ```
         4. Create Connection Object: Finally, code a call to the DriverManager object's getConnection( ) method to establish actual database connection.
+            ```Java
+            public static Connection createConnection() {
+                //create connection object
+                Connection connection = null;
+                try {
+                    //user the Driver manager to establish the connection and return the Connection object
+                    connection = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return connection;
+            }
+            ```
 
     - **Statements**
         1. Statement - Use this for general-purpose access to your database. Useful when you are using static SQL statements at runtime. The Statement interface cannot accept parameters.
             ([example](https://www.tutorialspoint.com/jdbc/statement-object-example.htm))
+            
         2. PreparedStatement - Use this when you plan to use the SQL statements many times. The PreparedStatement interface accepts input parameters at runtime.
             ([example](https://www.tutorialspoint.com/jdbc/preparestatement-object-example.htm))
 
@@ -95,7 +121,11 @@ Extends The EshopJAXRS project to connect to a Database
         1. Navigating a Result Set
         2. Viewing a Result Set
         
-
+    - **Transactions**
+        1. Disable connection autocommit.
+        2. Execute Multiple statements.
+        3. Rollnack on Error.
+        4. Commit on Success.
 
 
 7. **resources:**
