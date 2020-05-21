@@ -11,6 +11,7 @@ import java.util.List;
 public class UserRepository {
 
     //STANDARD - STATEMENT EXAMPLE
+    //With a simple try catch
     public List<User> getAllDBUsers() {
         List<User> usersList = new ArrayList<>();
 
@@ -29,6 +30,7 @@ public class UserRepository {
             System.out.println(query);
 
             //(5) Execute the query from the statement and acquire the Result-Set
+            //(6) the executeQuery() method returns a result set from the Database
             ResultSet rs = statement.executeQuery(query);
             if (rs.isClosed())
                 System.out.println("closed result set");
@@ -64,12 +66,25 @@ public class UserRepository {
         return usersList;
     }
 
+    //Prepared Statement example using the parameterised Query SELECT_USER_ID from the UserTemplate
+    //try with resources block
     public User getDBUser(long userId) {
+        //(1) We declare the user object we will retrieve
         User user = null;
+        //(2) We initialize the connection and prepared statement objects inside the try with resources block,
+        // try ( AutoClosable ){
+        // ...
+        // } catch (Exception e) {
+        // ...
+        // }
         try (Connection connection = DataBaseUtils.createConnection();
              PreparedStatement statement = connection.prepareStatement(UserTemplate.QUERY_SELECT_USER_ID)) {
 
+            //(3) we pass the userId parameter to the first parameter '?' declared in the query.
             statement.setLong(1, userId);
+
+            //(4) we execute the query using the custom executeFetchUser() method.
+            //and assign the result to the user object we will return
             user = executeFetchUser(statement);
 
         } catch (SQLException e) {
@@ -78,7 +93,9 @@ public class UserRepository {
         return user;
     }
 
-    // PREPARED - STATEMENT EXAMPLE
+    //(1) Used to check for the existing usernames
+    //(2) The implementation is the same as the method getDBUser(long userId) above but instead of the userId we use the username
+    //(3) We use the QUERY_SELECT_USER_USERNAME template that uses the column username in the db as the search parameter
     public User getDBUser(String username) {
         User user = null;
 
@@ -94,35 +111,40 @@ public class UserRepository {
         return user;
     }
 
-    private User executeFetchUser(PreparedStatement statement) throws SQLException {
-        User user = null;
-        ResultSet rs = statement.executeQuery();
-        while (rs.next()) {
-            user = parseUserFromResultSet(rs);
-        }
-        return user;
-    }
-
-    // PREPARED - STATEMENT EXAMPLE
+    //(1) Create a new User
+    //(2) Multiple PreparedStatements Example
     public User createDBUser(User user) {
+        //(4) Since we want to first INSERT a new user in the database and THEN retrieve him we will need
+        // to execute 2 operations, an INSERT first and then a retrieve, we will need a prepared statement for each
+        // parameterised query
         try (Connection connection = DataBaseUtils.createConnection();
+             //(5) the PreparedStatement.RETURN_GENERATED_KEYS value specifies to the statement that we will need
+             // it to return a ResultSet containing any possible key auto generated from the operation
              PreparedStatement statement = connection.prepareStatement(UserTemplate.QUERY_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
              PreparedStatement fetchUserStatement = connection.prepareStatement(UserTemplate.QUERY_SELECT_USER_ID)) {
 
+            //(6) The parameter Index value specifies the position of a '?' in the query.
+            // (e.g.) SELECT * FROM users WHERE userId = ? AND username = ?;
+            // the index for the userId is 1, and for the username is 2
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getFirstName());
             statement.setString(3, user.getLastName());
             statement.setString(4, user.getEmail());
 
+            //(7) The executeUpdate method needs to execute an INSER, UPDATE or DELETE method
+            // that return the number of rows changed(if any) or else 0
             int result = statement.executeUpdate();
-
+            //(8) The INSERT statement result should be 1 if it was successful so if the result is 0
+            // something went wrong and we exit the method with a null value.
             if (result == 0)
                 return null;
+
+            //(9) we use the getGeneratedKeys from the statement object to obtain the new UserId generated in the db
             ResultSet resultSet = statement.getGeneratedKeys();
             if(!resultSet.next()){
                 return null;
             }
-
+            //(10) we get the user from the db using the id from the insert statement
             fetchUserStatement.setLong(1, resultSet.getLong(1));
             user = executeFetchUser(fetchUserStatement);
 
@@ -132,6 +154,24 @@ public class UserRepository {
         return user;
     }
 
+    //(1) Since we need to fetch a user from multiple methods, getDBUser(String username), getDBUser(long userId) and createDBUser(User user)
+    // we use a method that wraps the same logic inside so we do not have to repeat it in all the other methods
+    // we do the same thing with the parseUserFromResultSet() method.
+    private User executeFetchUser(PreparedStatement statement) throws SQLException {
+        User user = null;
+        //(2) The executeQuery method returns the ResultSet Object.
+        //(3) The PreparedStatement needs to be initialised with a query that retrieves data ( SELECT )
+        //or the returned ResultSet will be closed.
+        ResultSet rs = statement.executeQuery();
+        while (rs.next()) {
+            //(4) We parse a User from the retrieved ResultSet
+            user = parseUserFromResultSet(rs);
+        }
+        return user;
+    }
+
+    //We use a method to parse the result set to a user since we will need to do this from multiple other methods.
+    //Similar to the mapper layer in the service
     private User parseUserFromResultSet(ResultSet rs) throws SQLException {
         User user = new User();
         user.setUserId(rs.getLong(UserTemplate.COLUMN_USER_ID));

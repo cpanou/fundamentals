@@ -31,6 +31,7 @@ public class MyApplication extends Application {
     public MyApplication() {
         super();
         DataBaseUtils.registerJDBCDriver();
+
         ProductRepository.init();
         OrderRepository.init();
         CartStore.init();

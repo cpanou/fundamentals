@@ -6,17 +6,28 @@ import com.company.eshop.model.Product;
 import java.util.HashMap;
 import java.util.Map;
 
+
+//Cart implementation
+//Same as the repositories but instead of a List we use a Map.
 public class CartStore {
     private static CartStore instance;
+
+    //Map holding a Cart mapped to a user-id
+    // Key----> userid
+    // Value--> Cart
     private Map<Long, Cart> cartMap = new HashMap<>();
+
     private CartStore() {
     }
+
     public static void init() {
         instance = new CartStore();
     }
+
     public static CartStore getInstance() {
         return instance;
     }
+
     public Cart getCart(long id) {
         return cartMap.get(id);
     }
@@ -45,4 +56,5 @@ public class CartStore {
     public void clearCart(long id) {
         cartMap.get(id).getProductList().clear();
     }
+
 }
