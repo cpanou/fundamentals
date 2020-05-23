@@ -78,7 +78,7 @@ public class OrderRepository {
             //SELECT ORDER
 
             //(5) we pass the orderId the select order statement and execute
-            selectOrder.setLong(1,orderId);
+            selectOrder.setLong(1, orderId);
             ResultSet orderResult = selectOrder.executeQuery();
             while (orderResult.next()) {
                order = parseOrderFromDB(orderResult);
@@ -95,7 +95,7 @@ public class OrderRepository {
             //(6) we only need all the product ids so we will use a temporary list to hold them
             List<Long> productIdList = new ArrayList<>();
             while (orderProductResult.next()) {
-                productIdList.add(orderProductResult.getLong(OrderProductTemplate.COLUMN_PRODUCT_ID));
+                productIdList.add( orderProductResult.getLong(OrderProductTemplate.COLUMN_PRODUCT_ID) );
             }
             //(7) if the list is empty there were no products
             if(productIdList.isEmpty())
@@ -116,6 +116,7 @@ public class OrderRepository {
                     product.setProductId(productResult.getLong("productId"));
                     product.setPrice(productResult.getLong("price"));
                     product.setProductName(productResult.getString("productName"));
+                    // add retrieved product to the list
                     productList.add(product);
                 }
                 selectProduct.clearParameters();
