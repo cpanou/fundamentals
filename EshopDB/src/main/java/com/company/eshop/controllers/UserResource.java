@@ -1,6 +1,8 @@
 package com.company.eshop.controllers;
 
 import com.company.eshop.dtos.*;
+import com.company.eshop.exceptions.ApplicationError;
+import com.company.eshop.exceptions.ApplicationException;
 import com.company.eshop.model.Product;
 import com.company.eshop.model.User;
 import com.company.eshop.services.UserService;
@@ -24,6 +26,7 @@ public class UserResource {
         log.info("get All Users Invoked ");
         return Response.ok(service.getUsers())
                 .build();
+
     }
 
     @POST

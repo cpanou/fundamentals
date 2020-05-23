@@ -16,4 +16,5 @@ public class OrderTemplate {
 
     public static final String QUERY_INSERT_ORDER = "INSERT INTO"+ DataBaseUtils.dbName+"."+TABLE_NAME+ " ( " + COLUMN_ORDER_ID +", "+ COLUMN_SUBMIT_DATE+", "+COLUMN_PROCESS_DATE + ", " + COLUMN_STATUS + " )"+ "VALUES (?,?,?,?);";
 
+
 }

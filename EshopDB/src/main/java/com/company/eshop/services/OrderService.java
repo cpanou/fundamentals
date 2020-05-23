@@ -4,7 +4,6 @@ import com.company.eshop.model.Order;
 import com.company.eshop.model.OrderStatus;
 import com.company.eshop.repository.OrderRepository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,10 +28,10 @@ public class OrderService {
         if(order == null ) return " Order Not Found ";
 
         order.setStatus(OrderStatus.PROCESSED);
-        order.setProcessed(LocalDateTime.now());
+        order.setProcessedDate(LocalDateTime.now());
         Order processedOrder = repository.updateOrder(order);
 
-        return "Order processed successfully: " + processedOrder.getProcessed();
+        return "Order processed successfully: " + processedOrder.getProcessedDate();
     }
 
 }
