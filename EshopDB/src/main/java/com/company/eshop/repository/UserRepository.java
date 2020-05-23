@@ -113,6 +113,24 @@ public class UserRepository {
 
 
     public User getUser(long userId) {
+        User user = null;
+
+
+        try (Connection connection = DataBaseUtils.createConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(UserTemplate.QUERY_SELECT_USER_ID)) {
+
+            preparedStatement.setLong(1,userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                user = parseUserFromDB(resultSet);
+
+            }
+
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         //Create Connection
 
@@ -120,7 +138,7 @@ public class UserRepository {
 
         //
 
-        return null;
+        return user;
     }
 
     public User addUser(User user) {

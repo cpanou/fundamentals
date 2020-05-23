@@ -4,8 +4,9 @@ import com.company.eshop.application.MyApplication;
 import com.company.eshop.model.Order;
 import com.company.eshop.model.Order;
 import com.company.eshop.model.OrderStatus;
+import com.company.eshop.repository.templates.OrderTemplate;
 
-import java.sql.Date;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +52,35 @@ public class OrderRepository {
     }
 
     public Order addOrder(Order order) {
-        log.info("Creating order: " + order.getOrderId());
-        order.setOrderId(getNewOrderId());
-        order.setSubmitted(LocalDateTime.now());
-        order.setStatus(OrderStatus.SUBMITTED);
-        orders.add(order);
-        log.info("Order " + order.getOrderId() + " created");
+
+        try (Connection connection = DataBaseUtils.createConnection();
+             PreparedStatement statement = connection.prepareStatement(OrderTemplate.QUERY_INSERT_ORDER,Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement statementSelect = connection.prepareStatement(OrderTemplate.QUERY_SELECT_ORDERS_ORDER_ID)){
+
+            statement.setTimestamp(1, Timestamp.valueOf(order.getSubmitted() ) );
+            statement.setString(2, order.getStatus().name() );
+            statement.setLong(3, order.getUserId() );
+
+            int result = statement.executeUpdate();
+            if (result == 0)
+                return null;
+
+            ResultSet keySet = statement.getGeneratedKeys();
+            if(!keySet.next()){
+                return null;
+
+            }
+            long neOrderId = keySet.getLong(1);
+
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return order;
+
     }
 
     public Order getOrder(long orderId) {

@@ -12,7 +12,7 @@ public class DataBaseUtils {
     public static final String dbUrl = "jdbc:mysql://localhost:3306/"+dbName+"?autoReconnect=true&useSSL=false&allowMultiQueries=false";
     //database connection credentials
     public static final String dbUser = "root";
-    public static final String dbPwd = "admin123";
+    public static final String dbPwd = "test1";
 
     public static void registerDriverName() {
         try {
