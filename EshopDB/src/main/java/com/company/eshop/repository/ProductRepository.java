@@ -47,25 +47,55 @@ public class ProductRepository {
 
     public List<Product> getProducts(){
         log.info("fetching all products");
+        //(1) Establish Connection using the DataBaseUtils.
+
+        //(2) Create a Statement object to execute a query from the template.
+        // The query we must use needs to return all products from the database.
+
+        //(3) execute the query and get the ResultSet.
+
+        //(4) parse the result set to a List of products.
+
+        //(5) Handle the resources with the try with resources block
         return products;
     }
 
-    public Product addProduct(Product product) {
-        log.info("Creating product: " + product.getProductName());
-        product.setProductId(getNewProductId());
-        products.add(product);
-        log.info("Product " + product.getProductName() + " created");
-        return product;
+    public Product getProduct(long productId) {
+        log.info("fetching product with id: "+ productId);
+        //(1) Establish Connection using the DataBaseUtils.
+
+        //(2) Create a PreparedStatement object to execute a query.
+        // The query we must return a product from the database based on its productId.
+
+        //(3) Pass the productId to the statement.
+
+        //(4) execute the query and get the result.
+
+        //(4) parse the result set to a product.
+
+        //(6) Handle the resources with the try with resources block
+        return null;
     }
 
-    public Product getProduct(long productId) {
-        log.info("fetching product with id: " + productId);
-        for( Product product: products) {
-            if( product.getProductId() == productId)
-                return product;
-        }
-        log.info("product with id : " + productId + " not found");
-        return null;
+    public Product addProduct(Product product) {
+        log.info("Creating a Product");
+        //(1) Establish Connection using the DataBaseUtils.
+
+        //(2) Create a PreparedStatement object to execute a query.
+        // The query we must use needs to insert a new product.
+
+        //(3) Pass the product attributes to the statement, in the correct positions.
+
+        //(4) execute the query and get the result.
+
+        //(5) check the result for any possible failures.
+
+        //(6) retrieve the newly created product.
+        // we need to execute a select query with the product id generated in the database
+        // hints - statement.getGeneratedKeys(), another statement to execute the select
+
+        //(7) Handle the resources with the try with resources block
+        return product;
     }
 
     public Product deleteProduct(long productId) {
