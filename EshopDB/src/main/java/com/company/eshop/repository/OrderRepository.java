@@ -131,7 +131,7 @@ public class OrderRepository {
         return order;
     }
 
-    
+
     // Add A new ORDER in the Database
     //(1) SHOWCASES TRANSACTIONS
     //(2) SHOWCASES BATCH STATEMENTS ( update statements ONLY (UPDATE, INSERT, DELETE) executed many times )
@@ -141,25 +141,25 @@ public class OrderRepository {
         //  with all the products it contains we will create an entry in the orderproducts table
         //  for each product in the productsList
         try (Connection connection = DataBaseUtils.createConnection();
-             PreparedStatement selectOrderStatement = connection.prepareStatement(OrderTemplate.QUERY_INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement insertOrderStatement = connection.prepareStatement(OrderTemplate.QUERY_INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement orderProductsStatement = connection.prepareStatement(OrderProductTemplate.QUERY_INSERT_ORDER_PRODUCTS)) {
             //1.1 - Since we want to execute multiple inserts we will
             // turn off autocommit so we can undo all executed inserts if anything goes wrong in the process
             connection.setAutoCommit(false);
 
             //3.1 - We pass the order attributes to the parameters of the statement
-            selectOrderStatement.setLong(1, order.getUserId());
-            selectOrderStatement.setString(2, order.getStatus().name());
-            selectOrderStatement.setTimestamp(3, Timestamp.valueOf(order.getSubmittedDate()));
+            insertOrderStatement.setLong(1, order.getUserId());
+            insertOrderStatement.setString(2, order.getStatus().name());
+            insertOrderStatement.setTimestamp(3, Timestamp.valueOf(order.getSubmittedDate()));
 
             //3.2 - We execute the statement and check the result
-            int result = selectOrderStatement.executeUpdate();
+            int result = insertOrderStatement.executeUpdate();
             if( result == 0 ) {
                 return null;
             }
             //3.3 - we retrieve the order id generated in the database
             // we will need it to create the orderproducts entries
-            ResultSet keySet = selectOrderStatement.getGeneratedKeys();
+            ResultSet keySet = insertOrderStatement.getGeneratedKeys();
             if(!keySet.next()) {
                 //1.2 - If we cannot retrieve the key we call the connection.rollback()
                 // method to undo the insert we previously executed and return
@@ -168,7 +168,7 @@ public class OrderRepository {
                 return null;
             }
 
-            order.setOrderId(keySet.getLong(1));
+            order.setOrderId( keySet.getLong(1) );
             keySet.close();
             //2.1 - for each product in the order we create an insert statement and add it to a batch of statements to be
             // executed in the database
@@ -185,13 +185,13 @@ public class OrderRepository {
             //2.5 the result is an array that contains the number of rows changed by each execution
             // (e.g.) provided we executed the statement 3 times and the result is:
             //          batchResult[0]--> 1  : the first execution updated 1 row
-            //          batchResult[1]--> 2  : the second execution updated 2 rows
+            //          batchResult[1]--> 1  : the second execution updated 2 rows
             //          batchResult[2]--> 0  : the third execution updated 0 rows
             // since we execute an insert statement a 0 row count is an error so we need to check each
             // result for errors.
             for ( int res : batchResult) {
                 //for each result we check its value ( row count)
-                if (res == 0){
+                if (res != 1) {
                     //1.3 - If any row count is 0 we rollback ALL the changes and return
                     connection.rollback();
                     return null;

@@ -117,30 +117,33 @@ public class UserRepository {
         //(4) Since we want to first INSERT a new user in the database and THEN retrieve him we will need
         // to execute 2 operations, an INSERT first and then a retrieve, we will need a prepared statement for each
         // parameterised query
+        String insertUserQuery = "INSERT INTO eshop.users "
+                + " ( username, firstname, lastname, email )" +
+                "VALUES (?, ?, ?, ?);";
         try (Connection connection = DataBaseUtils.createConnection();
              //(5) the PreparedStatement.RETURN_GENERATED_KEYS value specifies to the statement that we will need
              // it to return a ResultSet containing any possible key auto generated from the operation
-             PreparedStatement statement = connection.prepareStatement(UserTemplate.QUERY_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
+             PreparedStatement createUserStatement = connection.prepareStatement(UserTemplate.QUERY_INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS);
              PreparedStatement fetchUserStatement = connection.prepareStatement(UserTemplate.QUERY_SELECT_USER_ID)) {
 
             //(6) The parameter Index value specifies the position of a '?' in the query.
             // (e.g.) SELECT * FROM users WHERE userId = ? AND username = ?;
             // the index for the userId is 1, and for the username is 2
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getFirstName());
-            statement.setString(3, user.getLastName());
-            statement.setString(4, user.getEmail());
+            createUserStatement.setString(1, user.getUsername());
+            createUserStatement.setString(2, user.getFirstName());
+            createUserStatement.setString(3, user.getLastName());
+            createUserStatement.setString(4, user.getEmail());
 
-            //(7) The executeUpdate method needs to execute an INSER, UPDATE or DELETE method
+            //(7) The executeUpdate method needs to execute an INSERT, UPDATE or DELETE method
             // that return the number of rows changed(if any) or else 0
-            int result = statement.executeUpdate();
+            int result = createUserStatement.executeUpdate();
             //(8) The INSERT statement result should be 1 if it was successful so if the result is 0
             // something went wrong and we exit the method with a null value.
             if (result == 0)
                 return null;
 
             //(9) we use the getGeneratedKeys from the statement object to obtain the new UserId generated in the db
-            ResultSet resultSet = statement.getGeneratedKeys();
+            ResultSet resultSet = createUserStatement.getGeneratedKeys();
             if(!resultSet.next()){
                 return null;
             }

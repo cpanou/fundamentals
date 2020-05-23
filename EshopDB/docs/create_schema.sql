@@ -34,7 +34,7 @@ CREATE TABLE `eshop`.`products` (
 CREATE TABLE `eshop`.`orderproducts` (
   `orderId` bigint(20) NOT NULL,
   `productId` bigint(20) NOT NULL,
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   KEY `ORDER_ID_FK_idx` (`orderId`),
   KEY `PRODUCT_ID_FK_idx` (`productId`),

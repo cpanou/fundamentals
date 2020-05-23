@@ -28,6 +28,7 @@ public class CartStore {
         return instance;
     }
 
+
     public Cart getCart(long id) {
         return cartMap.get(id);
     }
@@ -49,7 +50,8 @@ public class CartStore {
         Cart cart = cartMap.get(id);
         if (cart == null)
             return null;
-        cart.getProductList().removeIf(product -> product.getProductId() == productId);
+        cart.getProductList() //list of products
+                  .removeIf(product -> product.getProductId() == productId);
         return cart;
     }
 

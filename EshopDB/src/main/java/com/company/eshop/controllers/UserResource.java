@@ -71,7 +71,7 @@ public class UserResource {
     }
 
 
-    //Sub-Resource Locator Method
+    // Sub-Resource Locator Method
     // When Any request contains the /cart in the path the execution is delegated to the CartResource class
     @Path("/{userid}/cart")
     @Produces(MediaType.APPLICATION_JSON)

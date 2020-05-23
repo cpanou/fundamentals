@@ -20,7 +20,8 @@ public class UserTemplate {
 
     public static String QUERY_INSERT_USER = "INSERT INTO " + DataBaseUtils.dbName+"." + TABLE_NAME
             + " ( " + COLUMN_USERNAME +", " + COLUMN_FIRSTNAME +", "+ COLUMN_LASTNAME +", "+ COLUMN_EMAIL +" )" +
-            "VALUES (?,?,?,?);";
+            "VALUES (?, ?, ?, ?);";
+
 
     public static String QUERY_DELETE_USER= "DELETE FROM " + DataBaseUtils.dbName+"."+ TABLE_NAME +
             " WHERE " + COLUMN_USER_ID +" = ?;";

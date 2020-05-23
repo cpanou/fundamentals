@@ -19,6 +19,7 @@ public class MyApplication extends Application {
     public Set<Class<?>> getClasses() {
         HashSet set = new HashSet<Class<?>>();
         set.add(JacksonJsonProvider.class);
+
         set.add(ProductResource.class);
         set.add(UserResource.class);
 
