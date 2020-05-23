@@ -151,21 +151,24 @@ Extends The EshopJAXRS project to connect to a Database
             ```Java
             //Execute the query and obtain the result set.
             ResultSet resultSet = statement.executeQuery("SELECT * FROM eshop.users;");
+
             //While there are more rows in the result set keep parsing users
             while (resultSet.next()) {
                 //Create a new User and pass in the attribues obtained from the result set
                 User user = new User();
+
                 user.setUserId( resultSet.getLong(UserTemplate.COLUMN_USER_ID) );
                 user.setEmail( resultSet.getString(UserTemplate.COLUMN_EMAIL) );
                 user.setUsername( resultSet.getString(UserTemplate.COLUMN_USERNAME) );
                 user.setFirstName( resultSet.getString(UserTemplate.COLUMN_FIRSTNAME) );
                 user.setLastName( resultSet.getString(UserTemplate.COLUMN_LASTNAME) );
+
                 //add the new user to the list of users we retrieved.
                 usersList.add(user);
             }
             ```     
-            - **.getLong()** and **.getString()** methods of the ResultSet are used to retrieve the column values. We can pass in either the column index we want to retrieve or the column name.
-            for example in the table above if we want to retrieve the username attribute we can either use: **.getString( 2 )** OR **.getString("username")**. The name of the method we need to use depends on the column data type. for a varchar we will use the .getString() method, for an integer we use the .getInt() method e.t.c.
+            - The **.getLong()** and **.getString()** methods of the ResultSet are used to retrieve the column values. We can pass in either the column index we want to retrieve or the column name.
+            for example in the table above, if we want to retrieve the username attribute we can either use: **.getString( 2 )** OR **.getString("username")**. The name of the method we need to use depends on the column data type. for a varchar we will use the .getString() method, for an integer we use the .getInt() method e.t.c.
 
 
     - **Transactions**
@@ -179,12 +182,15 @@ Extends The EshopJAXRS project to connect to a Database
             //2.1 - for each product in the order we create an insert statement and add it to a batch of statements to be
             // executed in the database
             for(Product product : order.getProducts()) {
+
                 //2.2 - we pass the values to the parameters of the statement
                 orderProductsStatement.setLong(1, order.getOrderId());
                 orderProductsStatement.setLong(2, product.getProductId());
+
                 //2.3 - the add batch method adds the set of parameters above to be used when we execute the query
                 orderProductsStatement.addBatch();
             }
+
             //2.4 - when we call the executebatch() method the same statement is executed
             // for each set of parameters we added in the step above
             int[] batchResult = orderProductsStatement.executeBatch();
@@ -206,7 +212,7 @@ Extends The EshopJAXRS project to connect to a Database
             ```Java
             connection.commit();
             ```
-
+        **Transaction examples in the OrderRepository class**
 
 7. **resources:**
     1. Databases:
