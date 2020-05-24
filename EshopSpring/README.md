@@ -52,18 +52,17 @@
 
     Within the container itself, these bean definitions are represented as BeanDefinition objects. A bean definition is essentially a recipe for creating one or more objects. The container looks at the recipe for a named bean when asked and uses the configuration metadata encapsulated by that bean definition to create (or acquire) an actual object.
     
-        ```Java
-        public class UsersController {
+    ```Java
+    public class UsersController {
 
-            private UserService service;
-
-            public UsersController(UserService service) {
-                this.service = service;
-            }
-
-            ...
+        private UserService service;
+        
+        public UsersController(UserService service) {
+            this.service = service;
         }
-        ```
+         ...
+    }
+    ```
 
     When you create a bean by the constructor approach, all normal classes are usable by and compatible with Spring. That is, the class being developed does not need to implement any specific interfaces or to be coded in a specific fashion. Simply specifying the bean class should suffice. However, depending on what type of IoC you use for that specific bean, you may need a default (empty) constructor.
 
