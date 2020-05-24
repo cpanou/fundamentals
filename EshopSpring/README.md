@@ -1,8 +1,8 @@
-# Getting Started
+# Eshop with Spring Boot
 
 1. ### Setup
-    - Goto [Spring initializr](https://start.spring.io/)
-    - Choose:
+    * Goto [Spring initializr](https://start.spring.io/)
+    * Choose:
         - Maven Project
         - Java Language
         - 2.3.0 Spring Boot Version
@@ -10,24 +10,24 @@
         - artifact: eshop
         - Packaging: Jar
         - Java: 11
-    - Add Dependencies:
+    * Add Dependencies:
         - **Spring Web** - It is used for building the web application, including RESTful applications using Spring MVC. It uses Tomcat as the default embedded container.
         - **Spring Data JPA** - Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.
         - **Lombok** - Java annotation library which helps to reduce boilerplate code.
-    - Generate, extract the zip and open it in Intellij.
-    - Open the pom.xml change parent to 2.1.4.RELEASE (if the hibernate dependency error still exists)
-    - Install Intellij lombok plugin
-    - Enable annotation processing
-    - Restart IDE
-    - Ready!
+    * Generate, extract the zip and open it in Intellij.
+    * Open the pom.xml change parent to 2.1.4.RELEASE (if the hibernate dependency error still exists)
+    * Install Intellij lombok plugin
+    * Enable annotation processing
+    * Restart IDE
+    * Ready!
 
 2. ### Spring Framework
 
-    - **IoC Container** : Inversion of Control (IoC) is also known as **dependency injection (DI)**. It is a process whereby objects define their dependencies (that is, the other objects they work with) only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. The container then injects those dependencies when it creates the bean. This process is fundamentally the inverse (hence the name, Inversion of Control) of the bean itself controlling the instantiation or location of its dependencies by using direct construction of classes or a mechanism such as the Service Locator pattern.
+    * **IoC Container** : Inversion of Control (IoC) is also known as **dependency injection (DI)**. It is a process whereby objects define their dependencies (that is, the other objects they work with) only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. The container then injects those dependencies when it creates the bean. This process is fundamentally the inverse (hence the name, Inversion of Control) of the bean itself controlling the instantiation or location of its dependencies by using direct construction of classes or a mechanism such as the Service Locator pattern.
 
         ![IOC Container](https://docs.spring.io/spring/docs/5.1.14.RELEASE/spring-framework-reference/images/container-magic.png)
 
-    - **Beans**: A Spring IoC container manages one or more beans. These beans are created with the configuration metadata that you supply to the container (for example, in the form of XML <bean/> definitions). 
+    * **Beans**: A Spring IoC container manages one or more beans. These beans are created with the configuration metadata that you supply to the container (for example, in the form of XML <bean/> definitions). 
 
         The bean definition :
         - Class
@@ -67,7 +67,7 @@
 
     When you create a bean by the constructor approach, all normal classes are usable by and compatible with Spring. That is, the class being developed does not need to implement any specific interfaces or to be coded in a specific fashion. Simply specifying the bean class should suffice. However, depending on what type of IoC you use for that specific bean, you may need a default (empty) constructor.
 
-    - **Spring Boot**: Spring Boot is basically an extension of the Spring framework which eliminated the boilerplate configurations required for setting up a Spring application.
+    * **Spring Boot**: Spring Boot is basically an extension of the Spring framework which eliminated the boilerplate configurations required for setting up a Spring application.
     It takes an opinionated view of the Spring platform which paved the way for a faster and more efficient development eco-system.
     Here are just a few of the features in Spring Boot:
 
@@ -80,7 +80,7 @@
 
 3.  ### The Application
 
-    - **EshopApplication.java**
+    * **EshopApplication.java**
         By default, Spring Boot uses an embedded container to run the application. In this case, Spring Boot uses the public static void main entry-point to launch an embedded web server.
         ```Java
         @SpringBootApplication
@@ -92,39 +92,41 @@
         }
         ```
         
-        ```Java @SpringBootApplication``` annotation is often placed on your main class, and it implicitly defines a base “search package” for certain items. It is recommented that you locate your main application class in a root package above other classes. This is a convenience annotation that adds all of the following:
+        ```@SpringBootApplication``` annotation is often placed on your main class, and it implicitly defines a base “search package” for certain items. It is recommented that you locate your main application class in a root package above other classes. This is a convenience annotation that adds all of the following:
 
-        - ```Java@Configuration```: Tags the class as a source of bean definitions for the application context.
+        - ```@Configuration```: Tags the class as a source of bean definitions for the application context.
 
-        - ```Java@EnableAutoConfiguration```: Tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings. For example, if spring-webmvc is on the classpath, this annotation flags the application as a web application and activates key behaviors, such as setting up a DispatcherServlet. Spring Boot auto-configuration attempts to automatically configure your Spring application based on the jar dependencies that you have added.
+        - ```@EnableAutoConfiguration```: Tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings. For example, if spring-webmvc is on the classpath, this annotation flags the application as a web application and activates key behaviors, such as setting up a DispatcherServlet. Spring Boot auto-configuration attempts to automatically configure your Spring application based on the jar dependencies that you have added.
 
-        - ```Java@ComponentScan```: Tells Spring to look for other components, configurations, and services in the com/example package, letting it find the controllers.
+        - ```@ComponentScan```: Tells Spring to look for other components, configurations, and services in the com/example package, letting it find the controllers.
 
-        com
-        +- company
-            +- eshop
-                +- EshopApplication.java
-                |
-                +- user
-                |   +- User.java
-                |   +- UserController.java
-                |   +- UserService.java
-                |   +- UserRepository.java
-                |
+        **package struture:**
+
+        com<br/>
+        +- company<br/>
+            +- eshop<br/>
+                +- EshopApplication.java<br/>
+                |<br/>
+                +- user<br/>
+                |   +- User.java<br/>
+                |   +- UserController.java<br/>
+                |   +- UserService.java<br/>
+                |   +- UserRepository.java<br/>
+                |<br/>
 
         If you structure your code as suggested above (locating your application class in a root package), you can add @ComponentScan without any arguments. All of your application components (@Component, @Service, @Repository, @Controller etc.) are automatically registered as Spring Beans.
 
-    - Configure application wide variables in application.properties
+    * Configure application wide variables in application.properties
 
         ```Java Properties
         server.servlet.contextPath=/eshop
         server.port=8080
         ```
 
-    - Add the User class
-        - Add lombok Annotations: ```Java @Data, @NoArgsConstructor, @AllArgsConstructor```
+    * Add the User class
+        - Add lombok Annotations: ```@Data, @NoArgsConstructor, @AllArgsConstructor```
 
-    - Add Users Controller 
+    * Add Users Controller 
         - @RestController: This is simply a specialization of the @Component class and allows implementation classes to be autodetected through the classpath scanning.
         - @RequestMapping: Specify the path for this rest Controller.
         - Create the methods to get All users, get a user by his ID and create a user.
@@ -134,19 +136,19 @@
             - @PostMapping
         - Use the ResponseEntity
 
-    - Add the UserService:
+    * Add the UserService:
         - getUsers() method that returns all users.
         - getUser(Long userId) method that returns one user by the userId.
         - addUser(User user) method that registers a new user.
 
 4. ### Spring Data JPA
-    - UserRepository
-    - Annotate the User class as an entity:
-        - ```Java@Entity```: Marks this class as a JPA entity.
-        - ```Java@Id```: Marks a column as the unique identifier for an entity.
-        - ```Java@GeneratedValue```: makes this column's value an autogenerated value based on the GenerationType enum
-        - ```Java@Column```: specify database attributes for this column
-    - application.properties configuration for MySQL
+    * UserRepository
+    * Annotate the User class as an entity:
+        - ```@Entity```: Marks this class as a JPA entity.
+        - ```@Id```: Marks a column as the unique identifier for an entity.
+        - ```@GeneratedValue```: makes this column's value an autogenerated value based on the GenerationType enum
+        - ```@Column```: specify database attributes for this column
+    * application.properties configuration for MySQL
         ```Java properties
         spring.jpa.hibernate.ddl-auto=update
         spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
@@ -156,8 +158,8 @@
         ```
 
 5. ### Test with Postman
-    - GET Request for http://localhost:8080/eshop/users to get a list of users.
-    - POST Request for http://localhost:8080/eshop/users to create a user.
+    * GET Request for http://localhost:8080/eshop/users to get a list of users.
+    * POST Request for http://localhost:8080/eshop/users to create a user.
         body:
         ```JSON
         {
@@ -167,8 +169,7 @@
             "lastname" : "tester"
         }
         ```
-    - GET Request for http://localhost:8080/eshop/users/{id} to retrieve a user.
-
+    * GET Request for http://localhost:8080/eshop/users/{id} to retrieve a user.
 
 ### Reference Documentation
 For further reference, please consider the following sections:
