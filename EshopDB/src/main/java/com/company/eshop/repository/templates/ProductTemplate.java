@@ -8,7 +8,7 @@ public class ProductTemplate {
     public static String COLUMN_PRODUCT_NAME = "productName";
     public static String COLUMN_PRICE = "price";
 
-    public static String QUERY_SELECT_ALL_USERS = "SELECT * FROM "+ DataBaseUtils.dbName+"." + TABLE_NAME + ";";
+    public static String QUERY_SELECT_ALL_PRODUCTS = "SELECT * FROM "+ DataBaseUtils.dbName+"." + TABLE_NAME + ";";
 
     public static String QUERY_SELECT_PRODUCT_ID = "SELECT * FROM " + DataBaseUtils.dbName+"."+ TABLE_NAME +
             " WHERE " + COLUMN_PRODUCT_ID +" = ?;";
