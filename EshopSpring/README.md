@@ -222,7 +222,7 @@
     - Retrieve All Products
     - Retrieve Product
 
-   - [[!Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/9f5ea3c25bd8cd83f863)
+   - [Run in Postman](https://app.getpostman.com/run-collection/9f5ea3c25bd8cd83f863)
 
 2. Object Model
 
