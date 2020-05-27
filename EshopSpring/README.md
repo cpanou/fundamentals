@@ -208,6 +208,48 @@
         ```
     * GET Request for http://localhost:8080/eshop/users/{id} to retrieve a user.
 
+
+6. ### Finilizing Project
+
+1. Full Specification
+   - Implementing All Business Functions:
+    - Register Users
+    - Retrieve Users
+    - Retrieve User
+    - Checkout User
+    - Get User Orders
+    - Process Orders
+    - Retrieve All Products
+    - Retrieve Product
+
+   - [[!Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/9f5ea3c25bd8cd83f863)
+
+2. Object Model
+
+   ![E-R Diagram](https://github.com/cpanou/fundamentals/blob/v.25.05.2020/EshopDB/docs/E-R%20Diagram.png)
+
+3. JPA Entities mapping
+
+   Every relationship has **two sides**:
+    **The owning side** is responsible for propagating the update of the relationship to the database. Usually this is the side **with the foreign key**.
+    **The inverse side** maps to the owning side.
+
+    Fetching order details for a user is pretty easy once the owning side has been designed.
+   
+   Entity Relationships:
+
+   - ManyToOne: The Many part of the Relationship inherits the id of the one part as a Foreign key. This Entity will be the owning part.
+    e.g. Order ----> User 
+   - OneToMany: The one part of the Relationship provides the id to the Many part as a Foreign key. This Entity will be the inverse part.
+    e.g. User ----> Order
+   - ManyToMany: We define the Relationship as an entity to which both parts have a oneToMany assiciation. The assiciation entity is the owner part for both.
+    e.g. Order <----> Product
+ 
+* [JPA - onToMany](https://maven.apache.org/guides/index.html)
+* [JAP - manyToMany](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/reference/html/)
+
+
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 * [Using Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot.html)

@@ -28,4 +28,5 @@ public class User {
     private String firstname;
     @Column(name = "lastname")
     private String lastname;
+
 }
