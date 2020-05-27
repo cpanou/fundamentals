@@ -213,14 +213,14 @@
 
 1. Full Specification
    - Implementing All Business Functions:
-    - Register Users
-    - Retrieve Users
-    - Retrieve User
-    - Checkout User
-    - Get User Orders
-    - Process Orders
-    - Retrieve All Products
-    - Retrieve Product
+       - Register Users
+       - Retrieve Users
+       - Retrieve User
+       - Checkout User
+       - Get User Orders
+       - Process Orders
+       - Retrieve All Products
+       - Retrieve Product
 
    - [Run in Postman](https://app.getpostman.com/run-collection/9f5ea3c25bd8cd83f863)
 
@@ -245,8 +245,8 @@
    - ManyToMany: We define the Relationship as an entity to which both parts have a oneToMany assiciation. The assiciation entity is the owner part for both.
     e.g. Order <----> Product
  
-* [JPA - onToMany](https://maven.apache.org/guides/index.html)
-* [JAP - manyToMany](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/reference/html/)
+* [JPA - onToMany](https://www.baeldung.com/hibernate-one-to-many)
+* [JAP - manyToMany](https://www.baeldung.com/jpa-many-to-many)
 
 
 
