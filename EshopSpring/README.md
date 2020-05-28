@@ -245,10 +245,16 @@
    - ManyToMany: We define the Relationship as an entity to which both parts have a oneToMany assiciation. The assiciation entity is the owner part for both.
     e.g. Order <----> Product
  
+
 * [JPA - onToMany](https://www.baeldung.com/hibernate-one-to-many)
 * [JAP - manyToMany](https://www.baeldung.com/jpa-many-to-many)
 
-
+4. ASSIGNMENT:
+    Check The UserService, User, Order, OrderProduct classes for information.
+    1. Implement the getOrders method of the Service: we want to retrieve all Orders for a given userId.
+    2. Implement the getOrdersByStatus method of the Service: we want to retrieve all Orders for a given userId and a given Status as a query param.
+    3. Translate the ManyToMany Relationship between the Order <---> Products into two manyToOne Relationships.
+        you will find hints in the comments!!
 
 ### Reference Documentation
 For further reference, please consider the following sections:

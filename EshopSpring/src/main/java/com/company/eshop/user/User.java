@@ -1,15 +1,19 @@
 package com.company.eshop.user;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.company.eshop.order.Order;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -28,5 +32,9 @@ public class User {
     private String firstname;
     @Column(name = "lastname")
     private String lastname;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private List<Order> orders;
 
 }
