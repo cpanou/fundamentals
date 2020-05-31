@@ -256,6 +256,148 @@
     3. Translate the ManyToMany Relationship between the Order <---> Products into two manyToOne Relationships.
         you will find hints in the comments!!
 
+7. ### Authentication with Spring Security
+
+    1. #### Authentication - Authorization
+
+    **Authentication**: Authentication involves verifying who the person says he/she is. This may involve checking a username/password or checking that a token is signed and not expired.
+    **Authorization**: Authorization involves checking resources that the user is authorized to access or modify via defined roles or claims. For example, the authenticated user is authorized for read access to a database but not allowed to modify it.
+
+    2. #### Authentication Types:
+        - **Basic Auth**: With this method, the sender places a **username:password** into the request Authorization header. The username and password are encoded with Base64, which is an encoding technique that converts the username and password into a set of 64 characters to ensure safe transmission. 
+        Header e.g.:
+            ```
+            Authorization: Basic bG9sOnNlY3VyZQ==
+            ```
+        - **JWT**: During the authentication process, when a user successfully logs in using their credentials, a JSON Web Token is returned and must be saved locally (typically in local storage). Whenever the user wants to access a protected route or resource (an endpoint), the user agent must send the JWT, usually in the Authorization header using the Bearer schema, along with the request.
+        Header e.g.:
+            ```
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+            ```
+    
+    3. #### Authentication and Authorization in Spring Boot:
+
+        1. prerequisites: 
+            - Add a "password" field to tha User class.
+            - Add a PasswordEncoder Bean to encode the password before saving it to the database in the EshopApplication.class:
+            ```Java
+            @Bean
+            public BCryptPasswordEncoder bCryptPasswordEncoder() {
+                return new BCryptPasswordEncoder();
+            }
+            ```
+            - Use the passwordEncoder before saving a new user to the database in the UserService.class: 
+            ```Java
+            //Create a password Encoder attribute to be 
+            //injected by Spring with the Bean we defined.
+            private BCryptPasswordEncoder bCryptPasswordEncoder;
+            ```
+            ```Java
+            //use the password encoder to encode the provided password when creating a new User
+            String encodedPass = bCryptPasswordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPass);
+            userRepository.save(user);
+            ```
+            - Add the Spring Security dependency to the pom.xml file:
+            ```XML
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+            </dependency>
+            ```
+            - Add the JWT dependency to the pom.xml file, this library enables the generation and validation of JWT tokens:
+            ```XML    
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>3.4.0</version>
+            </dependency>
+            ```
+
+        2. Goals :
+            - Implement an authentication filter to issue JWTS to users sending credentials.
+            - Implement an authorization filter to validate requests containing JWTS.
+            - Create a custom implementation of UserDetailsService to help Spring Security loading user-specific data in the framework.
+            - Extend the WebSecurityConfigurerAdapter class to customize the security framework to our needs.
+
+        3. The Authentication Filter:
+            - Create a new package called security into the eshop package.
+            - Create a class named ```JWTAuthenticationFilter```:
+            ```Java
+            public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+                    private AuthenticationManager authenticationManager;
+
+                    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+                        this.authenticationManager = authenticationManager;
+                    }
+                    ...
+            }
+            ```
+            Note that the authentication filter that we created extends the ```UsernamePasswordAuthenticationFilter``` class. When we add a new filter to Spring Security, we can explicitly define where in the filter chain we want that filter, or we can let the framework figure it out by itself. By extending the filter provided within the security framework, Spring can automatically identify the best place to put it in the security chain.
+            - We will @Override 2 methods of the Base class:
+                - ``attemptAuthentication``: where we parse the user's credentials and issue them to the AuthenticationManager.
+                - ``successfulAuthentication``: which is the method called when a user successfully logs in. We use this method to generate a JWT for this user.
+
+        4. The Authorization Filter:
+            - Create a class named ```JWTAuthorizationFilter```:
+            ```Java
+            public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+                
+                public JWTAuthorizationFilter(AuthenticationManager authManager) {
+                    super(authManager);
+                }
+                ...
+            }
+            ```
+            We have extended the ```BasicAuthenticationFilter``` to make Spring replace it in the filter chain with our custom implementation. 
+            - The most important part of the filter that we have to implement is the private ```getAuthentication``` method. This method reads the JWT from the Authorization header, and then uses JWT to validate the token. If everything is in place, we set the user in the SecurityContext and allow the request to move on.
+
+            To sum up the section we have created **two fitlers**. The ```JWTAuthenticationFilter``` which checks for credentials, generates a Jwt token and provides it to the caller. And the  ```JWTAuthorizationFilter``` which checks a request for the Authorization header and then validates the provided jwt. If no token is present in the request is aborted.
+        
+        5. Integrating the Filters with Spring Security:
+            - We create the class WebSecurity that extends th 
+            ```Java
+            @EnableWebSecurity
+            public class WebSecurity extends WebSecurityConfigurerAdapter {
+                private UserService userDetailsService;
+                private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+                public WebSecurity(UserService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+                    this.userDetailsService = userDetailsService;
+                    this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+                }
+            }
+            ```
+            The class is annotated with ```@EnableWebSecurity``` to enable Spring Security’s web security support and provide the Spring MVC integration. It also extends ```WebSecurityConfigurerAdapter``` and overrides a couple of its methods to set some specifics of the web security configuration.
+
+            - ```configure(HttpSecurity http)```: a method where we can define which resources are public and which are secured. In our case, we set the SIGN_UP_URL endpoint as being public and everything else as being secured. We also configure CORS (Cross-Origin Resource Sharing) support through http.cors() and we add a custom security filter in the Spring Security filter chain.
+            - ```configure(AuthenticationManagerBuilder auth)```: a method where we defined a custom implementation of UserDetailsService to load user-specific data in the security framework. We have also used this method to set the encrypt method used by our application (BCryptPasswordEncoder).
+            - ```corsConfigurationSource()```: a method where we can allow/restrict our CORS support. In our case we left it wide open by permitting requests from any source (/**).
+
+        6. Finally Spring Security doesn't come with a concrete implementation of ```UserDetailsService``` that we could use out of the box with our in-memory database, so we need to provide an implementation for the interface that Spring can use to match the provided credentials with an existing user. We modify the UserService.class with the following:
+        ```Java
+        public class UserService implements UserDetailsService {
+        ```
+        The ``UserDetailsService`` interface contains one method that we need to Override which is the ``` public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException ```. This method is called when the Filter tries to match a given user with a user from the database.
+
+        7. Test with Postman:
+            In our WebSecurity class we have defined one public endpoint the POST ./users which creates a new User. The remaining endpoints are protected by the authentication and authorization filters. Spring boot provides an additional public endpoint to enable loging in to the application:
+
+            - Create a new POST method with this url: ```http://localhost:8080/eshop/login```
+            and body:
+            ```JSON
+            {
+                "username":"someone",
+                "password":"user123"
+            }
+            ```
+            The /login endpoint was added by default with the UsernamePasswordAuthenticationFilter we provided. it accepts a User in JSON and matches the provided credentials with a user in the database. If the User is authenticated the Response will contain an Authorization Header:
+            ```Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb21lb25lIiwiZXhwIjoxNTkwOTQ2ODQ0fQ.0UJbGX0AS9hMg7CMHcHLZjWO0Y1Jrkpjm6pnUGlSGElF_-Yd8EwKf8fnfMUBv4n7EZjoivDO3kCSLO1wA4rr8A```
+            
+            - To access any of the remaining endpoints that are protected we need to add the above header to all our requests. When the jwt expires we have to login again and get a fresh one.
+
+
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 * [Using Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot.html)
