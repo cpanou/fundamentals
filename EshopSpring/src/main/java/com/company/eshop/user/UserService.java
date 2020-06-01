@@ -94,7 +94,7 @@ public class UserService {
     //Find All orders from the database that belong to the User with the provided userId
     // based on their status either SUBMITTED or PROCESSED
     // hint use the OrderStatus fromInput() function in the controller to parse the request param
-    public List<Order> getOrdersByStatus(Long userId, OrderStatus status) {
+    public List<Order> getOrders(Long userId, OrderStatus status) {
         //(1) Fetch the user from the repository
         //(2) Fetch all Orders for the userId( hint. start typing in the orderRepository:  List<Order> find .. The choose :)
         return new ArrayList<>();
