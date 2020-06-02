@@ -1,12 +1,12 @@
 package com.company.eshop.order;
 
 
+import com.company.eshop.orderproducts.OrderProduct;
 import com.company.eshop.product.Product;
 import com.company.eshop.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -43,12 +43,16 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            //Translates the ManyToMany relationship with the Product entity into a new Table
-            name = "order_products",    //The Name of the Table
-            joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false), //The foreign Key from the Order class
-            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false))//The foreign Key from the Product class
+    @OneToMany(mappedBy = "order")
+    @JsonBackReference
+//    @JoinTable(
+//            //Translates the ManyToMany relationship with the Product entity into a new Table
+//            name = "order_products",    //The Name of the Table
+//            joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false), //The foreign Key from the Order class
+//            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false))//The foreign Key from the Product class
+    private List<OrderProduct> orderProducts;
+
+    @Transient
     private List<Product> products;
 
 }

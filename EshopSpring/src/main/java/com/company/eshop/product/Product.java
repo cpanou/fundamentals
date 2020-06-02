@@ -2,6 +2,7 @@ package com.company.eshop.product;
 
 
 import com.company.eshop.order.Order;
+import com.company.eshop.orderproducts.OrderProduct;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -25,9 +26,8 @@ public class Product {
     private String productName;
     private Double price;
 
-    @ManyToMany(mappedBy = "products")
-    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "product")
     @JsonBackReference
-    private List<Order> orders;
+    private List<OrderProduct> orderProducts;
 
 }
