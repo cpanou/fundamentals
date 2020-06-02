@@ -8,10 +8,14 @@ import com.company.eshop.orderproducts.OrderProductRepository;
 import com.company.eshop.product.Product;
 import com.company.eshop.product.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,36 +69,35 @@ public class UserService {
         //(4) Save the order to the database and retrieve it with all generated values
         //If any foreign key constraint fails an exception will be thrown
 
-        //(5) Fetch provided products from the Database.
-        //We use the findAllById function from the JPA Repository which accepts a List of ids as an input and returns the List of retrieved Products.
-        //First we create the List of ids:
-        // (5.1) The "old" way: we create a new empty list of Long Objects and add the ids of each Product
-        List<Long> listOfIds = new ArrayList<>();
-        for (Product product : products) {
-            listOfIds.add(product.getId());
-        }
-        // (5.2) Lets see a nice way to get the List<Long>, using Java 8 Streams and lambdas
-        listOfIds = products.stream()     //Stream reference which gives us access to handy functions like .map(), .filter(), .collect() etc..
-                .map(Product::getId)  //The map method is used to transform the Stream of Products to a Stream of Longs (ids)
-                                                  //basically we provide a function to be called for each product in the Stream. the function we provide is the product.getId()
-                .collect(Collectors.toList());    //The collect method is used to turn the Stream object to a Collection.
-                                                  //The Collectors.toList() method will turn the Collection into a List
-
-        products = productRepository.findAllById(listOfIds);
-
+//        //(5) Fetch provided products from the Database.
+//        //We use the findAllById function from the JPA Repository which accepts a List of ids as an input and returns the List of retrieved Products.
+//        //First we create the List of ids:
+//        // (5.1) The "old" way: we create a new empty list of Long Objects and add the ids of each Product
+//        List<Long> listOfIds = new ArrayList<>();
+//        for (Product product : products) {
+//            listOfIds.add(product.getId());
+//        }
+//        // (5.2) Lets see a nice way to get the List<Long>, using Java 8 Streams and lambdas
+//        listOfIds = products.stream()     //Stream reference which gives us access to handy functions like .map(), .filter(), .collect() etc..
+//                .map(Product::getId)  //The map method is used to transform the Stream of Products to a Stream of Longs (ids)
+//                                                  //basically we provide a function to be called for each product in the Stream. the function we provide is the product.getId()
+//                .collect(Collectors.toList());    //The collect method is used to turn the Stream object to a Collection.
+//                                                  //The Collectors.toList() method will turn the Collection into a List
+//      products = productRepository.findAllById(listOfIds);
         List<OrderProduct> orderProducts = new ArrayList<>();
         for( Product product: products){
             OrderProduct orderProduct = new OrderProduct();
             orderProduct.setOrder(order);
-            orderProduct.setProduct(product);
+            orderProduct.setProduct(productRepository.findById(product.getId()).orElse(null));
             orderProducts.add(orderProduct);
         }
-        order.setOrderProducts(orderProducts);
+
+        order.setProductList(orderProducts);
         order = orderRepository.save(order);
-        orderProductRepository.saveAll(orderProducts);
+        List<OrderProduct> products1 = orderProductRepository.saveAll(orderProducts);
+        order.setProductList(products1);
         //(6) we set the retrieved products so we have all attributes and not just their ids.
 //        order.setProducts(products);
-        order.setProducts(products);
         return order;
     }
 

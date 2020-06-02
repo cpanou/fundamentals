@@ -3,6 +3,8 @@ package com.company.eshop.orderproducts;
 
 import com.company.eshop.order.Order;
 import com.company.eshop.product.Product;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +33,7 @@ public class OrderProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     //(4) Map The relationship with the Order class
@@ -41,6 +44,7 @@ public class OrderProduct {
         // The List of OrderProducts needs to have an entry for each Product provided and the new order
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonBackReference
     private Order order;
 
     //(5) Map The relationship with the product class

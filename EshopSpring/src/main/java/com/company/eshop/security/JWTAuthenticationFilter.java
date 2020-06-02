@@ -15,10 +15,11 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-public class JWTAuthenticationFilter {
+public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private String SECRET;
     private Long lifetime;
 
@@ -39,7 +40,7 @@ public class JWTAuthenticationFilter {
                     .readValue( request.getInputStream(), User.class);
 
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(userToAuthenticate.getUsername(), userToAuthenticate.getPassword())
+                    new UsernamePasswordAuthenticationToken(userToAuthenticate.getUsername(), userToAuthenticate.getPassword(),new ArrayList<>())
             );
             return authentication;
 

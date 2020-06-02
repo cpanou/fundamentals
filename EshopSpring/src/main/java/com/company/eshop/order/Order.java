@@ -5,6 +5,7 @@ import com.company.eshop.orderproducts.OrderProduct;
 import com.company.eshop.product.Product;
 import com.company.eshop.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -44,15 +45,12 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order")
-    @JsonBackReference
+    @JsonManagedReference
 //    @JoinTable(
 //            //Translates the ManyToMany relationship with the Product entity into a new Table
 //            name = "order_products",    //The Name of the Table
 //            joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false), //The foreign Key from the Order class
 //            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false))//The foreign Key from the Product class
-    private List<OrderProduct> orderProducts;
-
-    @Transient
-    private List<Product> products;
+    private List<OrderProduct> productList;
 
 }
