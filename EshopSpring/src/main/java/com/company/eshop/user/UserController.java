@@ -2,6 +2,7 @@ package com.company.eshop.user;
 
 
 import com.company.eshop.order.Order;
+import com.company.eshop.order.OrderStatus;
 import com.company.eshop.product.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,19 +54,30 @@ public class UserController {
     public ResponseEntity<Order> checkout(@PathVariable("id") Long id,
                                           @RequestBody List<Product> products) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.checkout( products, id ));
+                .body(userService.checkout(products, id));
     }
 
     @GetMapping(value = "/{id}/orders",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Order>> getUserOrders(@PathVariable("id") Long id,
                                                      //The RequestParam is a Query param. to test this try http://localhost:8080/eshop/users/1/orders?status=xxxxxx
-                                                     @RequestParam(value = "status", required = false) String status) {
+                                                     @RequestParam(value = "status", required = false) String statusInput) {
         //(1) If An OrderStatus is provided call the getOrders(id, OrderStatus) method from the service
         //(2) use the fromInput() method of the Order Status enum and check for null result. if not null a valid status was provided
+        OrderStatus status = OrderStatus.fromInput(statusInput);
+
+        if (status == null) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(userService.getOrders(id));
+        }
+
+
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.getOrders( id ));
+                .body(userService.getOrders(id, status));
+
     }
 
-
 }
+
+
+

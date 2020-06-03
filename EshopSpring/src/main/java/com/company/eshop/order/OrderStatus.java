@@ -8,7 +8,7 @@ public enum OrderStatus {
     public static OrderStatus fromInput(String value) {
         for (OrderStatus status : OrderStatus.values())
             if (status.name().equalsIgnoreCase(value))
-                return status;
+                return status; //return OrderStatus.SUBMITTED
         return null;
     }
 
