@@ -2,6 +2,8 @@ package com.company.eshop.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.company.eshop.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.env.Environment;
@@ -32,15 +34,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
 
+    @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
 
         try {
             User userToAuthenticate = new ObjectMapper()
-                    .readValue( request.getInputStream(), User.class);
+                    .readValue(request.getInputStream(), User.class);
 
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(userToAuthenticate.getUsername(), userToAuthenticate.getPassword(),new ArrayList<>())
+                    new UsernamePasswordAuthenticationToken(
+                            userToAuthenticate.getUsername(),
+                            userToAuthenticate.getPassword(),
+                            new ArrayList<>())
             );
             return authentication;
 
@@ -50,17 +56,22 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
 
+    @Override
     public void successfulAuthentication(HttpServletRequest request,
                                          HttpServletResponse response,
                                          FilterChain chain,
                                          Authentication authentication) {
-        org.springframework.security.core.userdetails.User user = ((org.springframework.security.core.userdetails.User) authentication.getPrincipal());
-        String token = JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + lifetime))
-                .withIssuedAt(new Date(System.currentTimeMillis()))
-                .sign(Algorithm.HMAC256( SECRET.getBytes() ));
-        response.addHeader("Authorization", "Bearer " + token);
+        try {
+            org.springframework.security.core.userdetails.User user = ((org.springframework.security.core.userdetails.User) authentication.getPrincipal());
+            String token = JWT.create()
+                    .withSubject(user.getUsername())
+                    .withExpiresAt(new Date(System.currentTimeMillis() + lifetime))
+                    .withIssuedAt(new Date(System.currentTimeMillis()))
+                    .sign(Algorithm.HMAC256(SECRET.getBytes()));
+            response.addHeader("Authorization", "Bearer " + token);
+        } catch (RuntimeException e) {
+            throw new JWTCreationException(e.getLocalizedMessage(), e);
+        }
     }
 
 }

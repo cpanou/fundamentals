@@ -249,12 +249,6 @@
 * [JPA - onToMany](https://www.baeldung.com/hibernate-one-to-many)
 * [JAP - manyToMany](https://www.baeldung.com/jpa-many-to-many)
 
-4. ASSIGNMENT:
-    Check The UserService, User, Order, OrderProduct classes for information.
-    1. Implement the getOrders method of the Service: we want to retrieve all Orders for a given userId.
-    2. Implement the getOrdersByStatus method of the Service: we want to retrieve all Orders for a given userId and a given Status as a query param.
-    3. Translate the ManyToMany Relationship between the Order <---> Products into two manyToOne Relationships.
-        you will find hints in the comments!!
 
 7. ### Authentication with Spring Security
 
@@ -396,6 +390,78 @@
             
             - To access any of the remaining endpoints that are protected we need to add the above header to all our requests. When the jwt expires we have to login again and get a fresh one.
 
+8. ### Error Handling
+
+    * Custom Error Object to return in case of Application Errors:
+    ```Java
+    public class ApplicationError {
+        private String error;
+        private Integer code;
+    }
+    ```
+
+    * Create a Custom Exception to throw at runtime:
+    ```Java
+    public class UserNotFoundException extends RuntimeException {
+    }
+    ```
+
+    * Register an Exception Mapper to catch the thrown exception and respond with an error.
+    ```Java
+    @ControllerAdvice
+    public class ErrorMapper extends ResponseEntityExceptionHandler {
+
+        @ExceptionHandler(value = {UserNotFoundException.class})
+        protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
+            
+            //Custom Application Object
+            ApplicationError error = new ApplicationError("User Not Found", 4);
+            HttpStatus status = HttpStatus.NOT_FOUND;
+
+            return handleExceptionInternal(ex, error, new HttpHeaders(), status, request);
+        }
+    }
+    ```
+
+    * Throw the exception when we cannot find a User e.g. UserService.class:
+    ```Java
+    public User getUser(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null)
+            throw new UserNotFoundException();
+        return user;
+    }
+    ```
+    
+    Postman Request:
+        GET http://localhost:8080/eshop/users/55
+        
+    Response:
+       ```JSON
+        {
+            "message": "User Not Found",
+            "code": 4
+        }
+       ```
+
+    * **SPRING SECURITY EXCEPTION HANDLING**: The Security exception handling happens when the filters are applied and our handler cannot catch the thrown exception.
+    The Framework provides **two** handlers for authentication errors, ```accessDeniedHandler``` when a user is authenticated but does not have access and ```authenticationEntryPoint``` when a user cannot be authenticated. We use the ```authenticationEntryPoint``` for either invalid credentials or an invalid JWT.
+    ```Java
+    //Spring Security Exception Handling
+    .exceptionHandling()
+    .authenticationEntryPoint((request, response, authException) -> {
+        ApplicationError error = new ApplicationError("Invalid Credentials",1 );
+        response.setStatus(401);
+        response.setContentType("application/json");
+
+        OutputStream out = response.getOutputStream();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(out, error);
+        out.flush();
+    })
+    ```
+
+    * [Error Handling](https://www.baeldung.com/exception-handling-for-rest-with-spring)
 
 
 ### Reference Documentation
