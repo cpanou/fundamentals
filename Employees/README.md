@@ -1,6 +1,6 @@
 # Employees Registry
 
-    Implementation of an employee registry service with Spring Boot following the Controller-Service-Mapper-Repository pattern.
+   Implementation of an employee registry service with Spring Boot following the Controller-Service-Mapper-Repository pattern.
 
 1. ### Setup
     * Goto [Spring initializr](https://start.spring.io/)
@@ -28,7 +28,7 @@
     ![E-R Diagram](https://github.com/cpanou/fundamentals/blob/master/Employees/ER-Diagram.png)
 
     * **Object Representation:** 
-                Employee:
+     * Employee:
         ```Java
         id
         username : unique
@@ -41,14 +41,14 @@
         leaveDate
         position
         ```
-                Department:
+     * Department:
         ```Java
         id
         name
         sector : enum [TECHNOLOGY, FINANCE, HR]
         company
         ```
-                Company:
+     * Company:
         ```Java
         id
         name
