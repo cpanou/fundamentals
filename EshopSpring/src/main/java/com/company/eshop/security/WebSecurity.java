@@ -38,7 +38,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, authException) -> {
                     ApplicationError error = new ApplicationError("Un Authorized",1 );
-                    
+
                     response.setStatus(401);
                     response.setContentType("application/json");
 
