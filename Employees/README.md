@@ -25,7 +25,7 @@
 
 2. ### Object Model:
 
-    ![E-R Diagram](https://github.com/cpanou/fundamentals/blob/v.25.05.2020/Employees/E-R%20Diagram.png)
+    ![E-R Diagram](https://github.com/cpanou/fundamentals/blob/master/Employees/ER-Diagram.png)
 
     * **Object Representation:** 
                 Employee:
