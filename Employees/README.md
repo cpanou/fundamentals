@@ -105,14 +105,12 @@
 
     * Operations to HTTP methods:
         
-        |-----------------------------------|--------------|-------------------|-------------------------------------------------|
         | Operation                         | HTTP Method  | BODY              | PATH                                            | 
         |-----------------------------------|--------------|-------------------|-------------------------------------------------|
         | Register Employees                |     POST     |  EmployeeRequest  |  /registry/employees                            |
         | Get All Employees of a Department |     GET      |         -         |  /registry/employees/department/{department-id} |
         | Get All Employees of a company    |     GET      |         -         |  /registry/employees/company/{company-id}       |
-        |-----------------------------------|--------------|-------------------|-------------------------------------------------|
-    
+
     * [The Controller](https://www.baeldung.com/building-a-restful-web-service-with-spring-and-java-based-configuration#controller)
 
 4. ### Security
