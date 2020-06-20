@@ -34,20 +34,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                //Spring Security Exception Handling
-                .exceptionHandling()
-                .authenticationEntryPoint((request, response, authException) -> {
-                    ApplicationError error = new ApplicationError("Un Authorized",1 );
-
-                    response.setStatus(401);
-                    response.setContentType("application/json");
-
-                    OutputStream out = response.getOutputStream();
-                    ObjectMapper mapper = new ObjectMapper();
-                    mapper.writeValue(out, error);
-                    out.flush();
-                })
-                .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), environment))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), environment))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

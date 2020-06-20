@@ -30,26 +30,55 @@ public class UserService implements UserDetailsService {
     private ProductRepository productRepository;
     private OrderProductRepository orderProductRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    //Mapper as a component
+    private UserDtoMapper userMapper;
 
-    public List<User> getUserList() {
+    public List<UserResponseDto> getUserList() {
+
+        //Business logic
         List<User> userList = new ArrayList<>();
         userRepository.findAll()
                 .forEach(userList::add);
-        return userList;
+
+        //Mapper from User to Response Object
+        List<UserResponseDto> userResponseDtos = new ArrayList<>();
+        for(User user: userList) {
+            UserResponseDto userResponse = userMapper.fromUser(user);
+            userResponseDtos.add(userResponse);
+        }
+        return userResponseDtos;
     }
 
-    public User getUser(Long id) {
+    public UserResponseDto getUser(Long id) {
+
+        //Business logic
         User user = userRepository.findById(id).orElse(null);
         if (user == null)
             throw new UserNotFoundException();
-        return user;
+
+        //Mapper from User to Response Object
+        return userMapper.fromUser(user);
     }
 
-    public User createUser(User user) {
+    public UserResponseDto createUser(CreateUserRequestDto userRequestDto) {
+        //Mapper from Request to User
+        User user = userMapper.fromRequest(userRequestDto);
+
+        //Business logic
         String encodedPass = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPass);
-        return userRepository.save(user);
+        user = userRepository.save(user);
+
+        //Mapper from User to Response
+        return userMapper.fromUser(user);
     }
+
+
+
+
+
+
+
 
     /**
      * Creates a New Order for a specified User
