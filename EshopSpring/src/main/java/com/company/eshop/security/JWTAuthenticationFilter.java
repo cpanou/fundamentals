@@ -69,6 +69,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     .withIssuedAt(new Date(System.currentTimeMillis()))
                     .sign(Algorithm.HMAC256(SECRET.getBytes()));
             response.addHeader("Authorization", "Bearer " + token);
+            response.addHeader("Access-Control-Expose-Headers", "Authorization");
         } catch (RuntimeException e) {
             throw new JWTCreationException(e.getLocalizedMessage(), e);
         }

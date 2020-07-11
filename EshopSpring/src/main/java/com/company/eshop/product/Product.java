@@ -24,6 +24,11 @@ public class Product {
     private Long id;
 
     private String productName;
+    private String info;
+    private String type;
+    private String category;
+    private String imageUrl;
+    private Integer available;
     private Double price;
 
     @OneToMany(mappedBy = "product")

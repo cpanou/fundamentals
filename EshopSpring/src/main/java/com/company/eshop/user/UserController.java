@@ -42,16 +42,14 @@ public class UserController {
                 .body(userService.createUser(user));
     }
 
+    @PostMapping(value="token",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RefreshTokenResponse> refreshUserToken(@RequestBody RefreshTokenRequest token) {
 
-
-
-
-
-
-
-
-
-
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userService.refreshToken(token));
+    }
 
 
     @PostMapping(value = "/{id}",
