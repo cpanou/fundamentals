@@ -1,4 +1,3 @@
-
 INSERT INTO `employees_registry`.`company`
 (
 `name`,
@@ -86,7 +85,7 @@ VALUES
 'Aleksandros123',
 'MESOGIWN 5, 131 88',
 'Aleksandros',
-'2018-05-18 12:46:12.658956'
+'2018-05-18 12:46:12.658956',
 '2020-05-28 09:16:43.897568',
 'Polikarpos',
 '6900000000',
