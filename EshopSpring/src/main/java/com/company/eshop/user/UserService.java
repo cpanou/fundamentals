@@ -169,10 +169,16 @@ public class UserService implements UserDetailsService {
                 throw new JWTVerificationException(e.getLocalizedMessage());
         }
 
+        User myUser = userRepository.findById(userId).orElse(new User());
         String refreshedToken = JWT.create()
                 .withSubject(String.valueOf(userId))
                 .withExpiresAt(new Date(System.currentTimeMillis() + lifetime))
                 .withIssuedAt(new Date(System.currentTimeMillis()))
+                //Custom claims
+                .withClaim("fst", myUser.getFirstname())
+                .withClaim("lst", myUser.getLastname())
+                .withClaim("unm", myUser.getUsername())
+                .withClaim("eml",myUser.getEmail())
                 .sign(Algorithm.HMAC256(SECRET.getBytes()));
         return new RefreshTokenResponse(refreshedToken);
     }

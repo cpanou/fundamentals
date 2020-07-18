@@ -57,7 +57,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             if ( e instanceof TokenExpiredException) {
                 sendExpiredResponse(response);
                 return;
-
             }
             throw new JWTVerificationException(e.getLocalizedMessage());
         }

@@ -23,6 +23,6 @@ public class ProductService {
     }
 
     public List<Product> searchProducts(String search) {
-        return repository.findAllByCategoryContainsIgnoreCaseOrTypeContainsIgnoreCaseOrProductNameContainsIgnoreCase(search,search,search);
+        return repository.findAllByCategoryContainsIgnoreCaseOrTypeContainsIgnoreCaseOrProductNameContainsIgnoreCase(search, search, search);
     }
 }

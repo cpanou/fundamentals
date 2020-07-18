@@ -66,11 +66,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                          Authentication authentication) {
         try {
             org.springframework.security.core.userdetails.User user = ((org.springframework.security.core.userdetails.User) authentication.getPrincipal());
-            Long userId = userService.getUser(user.getUsername()).getId();
+            User myUser = userService.getUser(user.getUsername());
+            Long userId = myUser.getId();
             String token = JWT.create()
                     .withSubject(String.valueOf(userId))
                     .withExpiresAt(new Date(System.currentTimeMillis() + lifetime))
                     .withIssuedAt(new Date(System.currentTimeMillis()))
+                    //Custom claims
+                    .withClaim("fst", myUser.getFirstname())
+                    .withClaim("lst", myUser.getLastname())
+                    .withClaim("unm", myUser.getUsername())
+                    .withClaim("eml",myUser.getEmail())
                     .sign(Algorithm.HMAC256(SECRET.getBytes()));
 
             response.addHeader("Authorization", "Bearer " + token);
