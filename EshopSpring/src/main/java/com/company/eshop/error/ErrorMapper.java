@@ -18,10 +18,14 @@ public class ErrorMapper extends ResponseEntityExceptionHandler {
         //Custom Application Object
         ApplicationError error = new ApplicationError("User Not Found", 4);
         HttpStatus status = HttpStatus.NOT_FOUND;
-        if(ex instanceof JWTVerificationException)
+        if(ex instanceof JWTVerificationException) {
+            status = HttpStatus.BAD_REQUEST;
             error = new ApplicationError(ex.getLocalizedMessage(), 101);
-        if(ex instanceof TokenExpiredException)
+        }
+        if(ex instanceof JwtExpiredException) {
             error = new ApplicationError("Token Has Expired", 102);
+            status = HttpStatus.FORBIDDEN;
+        }
         return handleExceptionInternal(ex, error, new HttpHeaders(), status, request);
     }
 }

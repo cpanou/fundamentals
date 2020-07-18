@@ -77,6 +77,13 @@ public class UserService implements UserDetailsService {
         return userMapper.fromUser(user);
     }
 
+    public User getUser(String username) {
+        User user = userRepository.findByUsername(username);
+        if( user == null)
+            throw new UserNotFoundException();
+        return user;
+    }
+
     public UserResponseDto createUser(CreateUserRequestDto userRequestDto) {
         //Mapper from Request to User
         User user = userMapper.fromRequest(userRequestDto);
@@ -142,26 +149,28 @@ public class UserService implements UserDetailsService {
 
     }
 
-    @Value("eshop.jwt.secret")
+    @Value("${eshop.jwt.secret}")
     private String SECRET;
-    @Value("eshop.jwt.lifetime")
-    private String lifetime;
-
+    @Value("${eshop.jwt.lifetime}")
+    private Integer lifetime;
     public RefreshTokenResponse refreshToken(RefreshTokenRequest token) {
-        String username = "";
+        Long userId = -1L;
         try {
-            username = JWT.require(Algorithm.HMAC256(SECRET.getBytes()))
+            String id = JWT.require(Algorithm.HMAC256(SECRET.getBytes()))
                     .build()
                     .verify(token.getToken())
                     .getSubject();
+            userId = Long.valueOf(id);
         } catch (RuntimeException e) {
+
             if (e instanceof TokenExpiredException)
-                username = JWT.decode(token.getToken()).getSubject();
+                userId = Long.valueOf(JWT.decode(token.getToken()).getSubject());
             else
                 throw new JWTVerificationException(e.getLocalizedMessage());
         }
+
         String refreshedToken = JWT.create()
-                .withSubject(username)
+                .withSubject(String.valueOf(userId))
                 .withExpiresAt(new Date(System.currentTimeMillis() + lifetime))
                 .withIssuedAt(new Date(System.currentTimeMillis()))
                 .sign(Algorithm.HMAC256(SECRET.getBytes()));

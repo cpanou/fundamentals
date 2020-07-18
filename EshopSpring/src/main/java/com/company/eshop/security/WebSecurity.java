@@ -1,6 +1,7 @@
 package com.company.eshop.security;
 
 import com.company.eshop.error.ApplicationError;
+import com.company.eshop.error.JwtExpiredException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import com.company.eshop.user.UserService;
@@ -26,6 +27,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     private UserService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private Environment environment;
+    private UserService userService;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -35,7 +37,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/users/token").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(), environment))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), environment, userService))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), environment))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
